@@ -1,5 +1,5 @@
 name: pretix
-description: Pretix helps you to sell tickets for your event in an easy way. It supports multi-lingual events and provides a wide range of features.
+description: Reinventing ticket presales, one ticket at a time.
 type: application
 version: 2024.2.0
 apiVersion: v2
@@ -16,7 +16,7 @@ dependencies:
     condition: redis.enabled
 sources:
   - https://github.com/pretix/pretix
-  - https://github.com/techwolf12/pretix-helm
+  - https://github.com/techwolf12/charts
   - https://hub.docker.com/r/pretix/standalone
 icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
 maintainers:

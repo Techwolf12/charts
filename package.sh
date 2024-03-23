@@ -8,5 +8,4 @@ git checkout gh-pages
 mv /tmp/helm-package/* .
 git add *.tgz index.yaml
 git commit -m "Update charts"
-git push origin gh-pages
-git checkout main
+echo "Don't forget to use helm-sign, and commit the changes"
