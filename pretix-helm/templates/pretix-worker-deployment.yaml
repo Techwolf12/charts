@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pretix.fullname" . }}-worker
+  labels:
+    app: {{ include "pretix.fullname" . }}
+    service: worker
+    {{- include "pretix.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas.pretixWorker }}
+  selector:
+    matchLabels:
+      app: {{ include "pretix.fullname" . }}
+      service: worker
+  template:
+    metadata:
+      labels:
+        app: {{ include "pretix.fullname" . }}
+        service: worker
+    spec:
+      containers:
+      - name: pretix-worker
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["pretix"]
+        args: ["taskworker"]
+        env:
+        - name: AUTOMIGRATE # Migrations are handled by helm hooks in pretix-migrate.yaml
+          value: "skip"
+        {{- range $key, $value := .Values.env }}
+        - name: {{ $key }}
+          value: {{ $value | quote }}
+        {{- end }}
+        resources:
+          requests:
+            memory: "{{ .Values.resources.requests.memory }}"
+            cpu: "{{ .Values.resources.requests.cpu }}"
+          limits:
+            memory: "{{ .Values.resources.limits.memory }}"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: pretix-data
+          mountPath: /data
+      volumes:
+      - name: pretix-data
+        persistentVolumeClaim:
+          claimName: pretix-data

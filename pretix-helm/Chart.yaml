@@ -1,0 +1,25 @@
+name: pretix
+description: Pretix helps you to sell tickets for your event in an easy way. It supports multi-lingual events and provides a wide range of features.
+type: application
+version: 2024.2.0
+apiVersion: v2
+keywords:
+  - event-tickets
+dependencies:
+  - name: postgresql
+    version: "15.1.2"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+  - name: redis
+    version: "19.0.1"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+sources:
+  - https://github.com/pretix/pretix
+  - https://github.com/techwolf12/pretix-helm
+  - https://hub.docker.com/r/pretix/standalone
+icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
+maintainers:
+  - name: Chrsitiaan de Die le Clercq
+    email: contact@techwolf12.nl
+    url: https://techwolf12.nl/
