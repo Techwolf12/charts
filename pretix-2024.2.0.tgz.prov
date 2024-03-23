@@ -11,8 +11,7 @@ dependencies:
   name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.0.1
-description: Pretix helps you to sell tickets for your event in an easy way. It supports
-  multi-lingual events and provides a wide range of features.
+description: Reinventing ticket presales, one ticket at a time.
 icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
 keywords:
 - - event-tickets
@@ -23,22 +22,22 @@ maintainers:
 name: pretix
 sources:
 - - https://github.com/pretix/pretix
-- - https://github.com/techwolf12/pretix-helm
+- - https://github.com/techwolf12/charts
 - - https://hub.docker.com/r/pretix/standalone
 type: application
 version: 2024.2.0
 
 ...
 files:
-  pretix-2024.2.0.tgz: sha256:bddfc6824491d1d30579ce96a0a10fbfb55e20b322baea9a20a820efe8184f66
+  pretix-2024.2.0.tgz: sha256:8301924baf3799d18ee2357a18a8e56db332128df27a8a7493cf31fae7558bf6
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmX/Wr4ACgkQfNhimD/7
-mYpFuwgAgyIIel23PleDCkqcCKz1ZsWwSOI7QqZpZeXxZ+eTFPjrR1kqf3K4AAkR
-jGHti5tOS8KdVwjDene5jnGecwtatEZcgwpoIqjuwVKqH8dhuy+8OjkReuzvNgia
-ZS2bzUwiX1dWSC61QC8L3+NdJw+O5yxdW5bYzyAOx5LVHRIj990TJIxut8WBM5Ic
-7COzXvB86mwVOdfWrVz+GqHk8JddVPDAaqhzDZhZQ3ksiNyXPHRLdWBh4qKDtCQH
-w6njOL3qQ+PhlD/dtYjMi6Mbyf0y3h2AKUeuBvh0V9RwzDqZrL9r7obHvx3qQvVi
-u7Yg7cI11JfM27JNjBSRxT/Sh6TclA==
-=yhGo
+iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmX/X9QACgkQfNhimD/7
+mYrmeAf+MCQhNPDjGpdwj3ksF0naUJ6E6DraOHnT6suklcb4EJeVdrw266EsSeur
+OLy/pk+3Bjxh/bTuPq4qbZa2SatB/EGSdC96xN6qxC9TvJPELKmJNa0/MI0pfC7H
+WUea2xJs70RQ/39U7DjWGC3HXbVQfsRPLo+2XMvmZtr0gg5eCz4wVtU0SOij9Bqc
+eo1j37mBOKCZtVJnLdoGBZisbbeOz+EUU3YjggAPZMELiumYMKL7yWzJRej2mULy
+FkATN7WaES9D6DiuHyojJRKpTDupXY0FyumLRpvwlAMcLmnu6YFXgvWyx5I187X4
+LZDp9XQ8qKrZirFjVn9JwbHCTXHhZw==
+=GTZj
 -----END PGP SIGNATURE-----
