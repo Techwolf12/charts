@@ -3,6 +3,7 @@ image:
   repository: pretix/standalone
   tag: 2024.2.0
   pullPolicy: IfNotPresent
+  pullSecrets: []
 
 # Replica config
 replicas:
@@ -55,6 +56,7 @@ postgresql:
     database: pretix
     username: pretix
     password: pretix
+    postgresPassword: supersecureadminpassword
 
 redis:
   enabled: true
