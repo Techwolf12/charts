@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   pretix:
   - apiVersion: v2
-    created: "2024-03-24T00:03:25.483755+01:00"
+    created: "2024-03-24T13:46:52.045346+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -13,7 +13,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 19.0.1
     description: Reinventing ticket presales, one ticket at a time.
-    digest: 8301924baf3799d18ee2357a18a8e56db332128df27a8a7493cf31fae7558bf6
+    digest: b25cef59d6815fac1446c2e5cf760b89c3d3f6a32fa665dee875f69887a7332a
     icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
     keywords:
     - event-tickets
@@ -30,4 +30,4 @@ entries:
     urls:
     - https://helm.techwolf12.nl/pretix-2024.2.0.tgz
     version: 2024.2.0
-generated: "2024-03-24T00:03:25.473235+01:00"
+generated: "2024-03-24T13:46:52.033819+01:00"
