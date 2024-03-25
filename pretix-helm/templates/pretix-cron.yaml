@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "pretix.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.cronSchedule }}
+  schedule: "{{ .Values.cronSchedule }}"
   jobTemplate:
     spec:
       template:
