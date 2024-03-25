@@ -12,6 +12,10 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
+      volumes:
+      - name: pretix-data
+        persistentVolumeClaim:
+          claimName: {{ include "pretix.fullname" . }}-data
       containers:
       - name: pretix-migrate
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -24,6 +28,9 @@ spec:
         {{- end }}
         command: ["pretix"]
         args: ["migrate"]
+        volumeMounts:
+        - name: pretix-data
+          mountPath: /data
         env:
             {{- range $key, $value := .Values.env }}
             - name: {{ $key }}

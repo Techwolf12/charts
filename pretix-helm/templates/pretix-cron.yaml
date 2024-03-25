@@ -5,12 +5,16 @@ metadata:
   labels:
     {{- include "pretix.labels" . | nindent 4 }}
 spec:
-  schedule: "*/30 * * * *"
+  schedule: {{ .Values.cronSchedule }}
   jobTemplate:
     spec:
       template:
         spec:
             restartPolicy: OnFailure
+            volumes:
+            - name: pretix-data
+              persistentVolumeClaim:
+                claimName: {{ include "pretix.fullname" . }}-data
             containers:
             - name: pretix-cron
               image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
@@ -23,8 +27,12 @@ spec:
               {{- end }}
               command: ["pretix"]
               args: ["cron"]
+              volumeMounts:
+              - name: pretix-data
+                mountPath: /data
               env:
               {{- range $key, $value := .Values.env }}
               - name: {{ $key }}
                 value: {{ $value | quote }}
               {{- end }}
+            

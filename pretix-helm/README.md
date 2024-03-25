@@ -56,10 +56,15 @@ Breaking changes will be listed below.
 | image.pullSecrets | Docker secret names as array, if your custom repo needs authentication to read            | []                                                      |
 
 ## Replicas
-| Name               | Description                                       | Default Value |
-|--------------------|---------------------------------------------------|---------------|
-| replicas.pretixWeb | How many Pretix Web instances you want running    | 1             |
-| replicas.pretixWeb | How many Pretix Worker instances you want running | 1             |
+| Name                  | Description                                       | Default Value |
+|-----------------------|---------------------------------------------------|---------------|
+| replicas.pretixWeb    | How many Pretix Web instances you want running    | 1             |
+| replicas.pretixWorker | How many Pretix Worker instances you want running | 1             |
+
+## Cron
+| Name         | Description                              | Default Value |
+|--------------|------------------------------------------|---------------|
+| cronSchedule | Schedule for when to run the Pretix cron | */30 * * * *  |
 
 ## Environment variables
 See all possible config variables [on the Pretix documentation site](https://docs.pretix.eu/en/latest/admin/config.html).

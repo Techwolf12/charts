@@ -10,6 +10,8 @@ replicas:
   pretixWeb: 1
   pretixWorker: 1
 
+cronSchedule: "*/30 * * * *"
+
 env:
   PRETIX_PRETIX_INSTANCE_NAME: Pretix Helm
   PRETIX_PRETIX_URL: http://localhost

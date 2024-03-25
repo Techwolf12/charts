@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pretix-data
+  name: {{ include "pretix.fullname" . }}-data
 spec:
   accessModes:
     - {{ .Values.persistence.accessMode }}

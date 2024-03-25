@@ -51,4 +51,4 @@ spec:
       volumes:
       - name: pretix-data
         persistentVolumeClaim:
-          claimName: pretix-data
+          claimName: {{ include "pretix.fullname" . }}-data
