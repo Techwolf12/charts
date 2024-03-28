@@ -1,4 +1,5 @@
 {{- if .Values.ingress.enabled -}}
+{{- $fullName := include "pretix.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -30,7 +31,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "pretix.fullname" . }}-web
+                name: {{ $fullName }}-web
                 port:
                   number: 8000
           {{- end }}
