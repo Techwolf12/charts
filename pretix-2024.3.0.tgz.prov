@@ -2,6 +2,7 @@
 Hash: SHA256
 
 apiVersion: v2
+appVersion: 2024.3.0
 dependencies:
 - - condition: postgresql.enabled
   name: postgresql
@@ -29,15 +30,15 @@ version: 2024.3.0
 
 ...
 files:
-  pretix-2024.3.0.tgz: sha256:8ec205c4af074daf97cae99ed02cc2add7d76e94fe8269b85a8b6f4a49dbe3aa
+  pretix-2024.3.0.tgz: sha256:771d24fc6952630307412173e9acf32b85d5d3cae7b6f21e9149f691238df1e8
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmYFnPEACgkQfNhimD/7
-mYp+2wf9HHZbpVh4Y1XNr1MRiP42uBvfE9Q1xIXVeiFTryp2+Qi89esBlGfYKpB4
-abixlIoJOmKvMGNkIh1S8S6IYMKzA80KuV6M7XXRNdNQ+L1ObSbewAY1AiVB4MXn
-M9zQg9nM4/qGGoeiCgoyV2thfCl3MxbDgl17vb+JvLMqlSjeTcH1XjDX/Ct8QtGX
-IUwxZxFiyabwYi1gmDCo2Kh62aisEqeiVAZC7oXIhnFQMtJoqIbrlNPI5aXxQ+NP
-hpMY51dD+nmyTQLOxmGef+7kxEoS1vnr0ns05pBBnJfT5Zit901cXSYT1MnXUnEO
-Rky/uvCTVqpkoPnatP9ml27MG24hFA==
-=Rn9l
+iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmYiWSQACgkQfNhimD/7
+mYqZFAf+PJFanycM3lUPEDW1/lKyTXicGxl1/F/1sXOJEO39PQzkSj9PLEyiFg21
+nL/5J19wQZvVoZS0T5WY6XYHuOn+66jdCBg0fXn05MhWTy3qqxUr9TrXZXryKI88
+UIIujBvFzb0e3Brk0d4l6x3++heAmNHy9239ClGQEvRmZa8mBrSun2yyNCcjnf8z
+Z4mohHhxBEi/gtjZ5+JBNfcxIYBkg408AaALBFtq3qz5F8csNwe3hLF2n0Lv7ogW
+b5+EGFIYXvWfuqzUyYHavl6Le8X7kYVCNvJxPnR+Y6OqkLUIbxRJGqHdZOcNe0Kg
+wrPL9AzSzzVZeJWFvZm0HIun8xs+bQ==
+=jGIY
 -----END PGP SIGNATURE-----
