@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "pretix.fullname" . }}-web
+  name: {{ include "pretix.fullname" . | trunc 59 }}-web
   labels:
     app: {{ include "pretix.fullname" . }}
     service: web
@@ -51,4 +51,4 @@ spec:
       volumes:
       - name: pretix-data
         persistentVolumeClaim:
-          claimName: {{ include "pretix.fullname" . }}-data
+          claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data

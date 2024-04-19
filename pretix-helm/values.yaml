@@ -70,6 +70,7 @@ redis:
 ingress:
   enabled: false
   annotations: {}
+  ingressClassName: ""
   hosts:
     - host: pretix.example.com
       paths:

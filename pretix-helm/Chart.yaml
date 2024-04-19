@@ -2,6 +2,7 @@ name: pretix
 description: Reinventing ticket presales, one ticket at a time.
 type: application
 version: 2024.3.0
+appVersion: 2024.3.0
 apiVersion: v2
 keywords:
   - event-tickets

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "pretix.fullname" . }}-cron
+  name: {{ include "pretix.fullname" . | trunc 58 }}-cron
   labels:
     {{- include "pretix.labels" . | nindent 4 }}
 spec:
@@ -14,7 +14,7 @@ spec:
             volumes:
             - name: pretix-data
               persistentVolumeClaim:
-                claimName: {{ include "pretix.fullname" . }}-data
+                claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
             containers:
             - name: pretix-cron
               image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}

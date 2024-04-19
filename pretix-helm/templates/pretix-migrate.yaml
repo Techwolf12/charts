@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "pretix.fullname" . }}-migrate
+  name: {{ include "pretix.fullname" .  | trunc 55 }}-migrate
   labels:
     {{- include "pretix.labels" . | nindent 4 }}
   annotations:
@@ -15,7 +15,7 @@ spec:
       volumes:
       - name: pretix-data
         persistentVolumeClaim:
-          claimName: {{ include "pretix.fullname" . }}-data
+          claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
       containers:
       - name: pretix-migrate
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}

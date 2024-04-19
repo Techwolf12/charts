@@ -138,6 +138,7 @@ More options can be overridden from the Redis chart here.
 |------------------------------------|-------------------------------------------------------------------------------|------------------------|
 | ingress.enabled                    | If the ingress is enabled                                                     | false                  |
 | ingress.annotations                | Annotations to be added to the ingress                                        | {}                     |
+| ingress.ingressClassName           | Class name to use for the ingress                                             | ""                     |
 | ingress.hosts[0].host              | The host name to be used for the ingress, make sure it matches the Pretix env | pretix.example.com     |
 | ingress.hosts[0].paths[0].path     | The path under the host                                                       | /                      |
 | ingress.hosts[0].paths[0].pathType | The pathType of the path under the host                                       | ImplementationSpecific |
