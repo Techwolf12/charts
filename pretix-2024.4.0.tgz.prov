@@ -1,0 +1,44 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+apiVersion: v2
+appVersion: 2024.4.0
+dependencies:
+- - condition: postgresql.enabled
+  name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.1.2
+- - condition: redis.enabled
+  name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 19.0.1
+description: Reinventing ticket presales, one ticket at a time.
+icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
+keywords:
+- - event-tickets
+maintainers:
+- - email: contact@techwolf12.nl
+  name: Chrsitiaan de Die le Clercq
+  url: https://techwolf12.nl/
+name: pretix
+sources:
+- - https://github.com/pretix/pretix
+- - https://github.com/techwolf12/charts
+- - https://hub.docker.com/r/pretix/standalone
+type: application
+version: 2024.4.0
+
+...
+files:
+  pretix-2024.4.0.tgz: sha256:6d14e0a3d32005dab448c479f5a826fe5a5901b3a8b1c31bbffecdfcddf643fe
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmY8unMACgkQfNhimD/7
+mYoE2wf/ShAkP3HO7KiSJE5+jcA8GQZnsxwYaGX+XKH5KN8e5sc+7PivxEkKfRQ4
+dmjgHFVrzSnOFEUS8DHW7HplDNMJx0WyeCorYk4CQTIp4EP+MbebAtYwq0S1Sq6A
+V5cq56I4IxgbqjAfWNkn7CWboool1jZ+DWLSL1u123L8+EtOz3vVNW7wBFmNxI99
+072NjC44lAOsxFeo3qsI0O7eP5nGgLEotFm3I8q+lqm4CsjiAjNRAoWQ4kBp/5Se
+2WBnKAyp0rpegI03uko8+6zBP/MsrUxfDC+QKCZsBcfgAb1Fu3Q0bwcwEmrvUPnj
+/5uiWNHmpuSk3fjuBBYyuX/xS4YVbw==
+=xLXY
+-----END PGP SIGNATURE-----
