@@ -1,7 +1,7 @@
 # Pretix image configuration
 image:
   repository: pretix/standalone
-  tag: 2024.7.0
+  tag: 2024.8.0
   pullPolicy: IfNotPresent
   pullSecrets: []
 
@@ -20,7 +20,7 @@ env:
   PRETIX_PRETIX_TRUST_X_FORWARDED_FOR: on
   PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO: on
   PRETIX_MAIL_FROM: test@example.com
-  PRETIX_MAIL_HOST: 
+  PRETIX_MAIL_HOST:
   PRETIX_MAIL_USER:
   PRETIX_MAIL_PASSWORD:
   PRETIX_MAIL_PORT: 587
