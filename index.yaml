@@ -2,8 +2,38 @@ apiVersion: v1
 entries:
   pretix:
   - apiVersion: v2
+    appVersion: 2024.9.0
+    created: "2024-10-02T18:24:34.668885+02:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.1.2
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.0.1
+    description: Reinventing ticket presales, one ticket at a time.
+    digest: e691848f6941e15c4d797a72464ad5f6443ebec6acc81c294247c1f4f229728a
+    icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
+    keywords:
+    - event-tickets
+    maintainers:
+    - email: contact@techwolf12.nl
+      name: Chrsitiaan de Die le Clercq
+      url: https://techwolf12.nl/
+    name: pretix
+    sources:
+    - https://github.com/pretix/pretix
+    - https://github.com/techwolf12/charts
+    - https://hub.docker.com/r/pretix/standalone
+    type: application
+    urls:
+    - https://helm.techwolf12.nl/pretix-2024.9.0.tgz
+    version: 2024.9.0
+  - apiVersion: v2
     appVersion: 2024.8.0
-    created: "2024-08-29T20:16:21.947561+02:00"
+    created: "2024-10-02T18:24:34.662434+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -33,7 +63,7 @@ entries:
     version: 2024.8.0
   - apiVersion: v2
     appVersion: 2024.7.0
-    created: "2024-08-29T20:16:21.94042+02:00"
+    created: "2024-10-02T18:24:34.654456+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -63,7 +93,7 @@ entries:
     version: 2024.7.0
   - apiVersion: v2
     appVersion: 2024.6.0
-    created: "2024-08-29T20:16:21.931861+02:00"
+    created: "2024-10-02T18:24:34.647023+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -93,7 +123,7 @@ entries:
     version: 2024.6.0
   - apiVersion: v2
     appVersion: 2024.5.0
-    created: "2024-08-29T20:16:21.924323+02:00"
+    created: "2024-10-02T18:24:34.639533+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -123,7 +153,7 @@ entries:
     version: 2024.5.0
   - apiVersion: v2
     appVersion: 2024.4.0
-    created: "2024-08-29T20:16:21.916824+02:00"
+    created: "2024-10-02T18:24:34.632488+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -153,7 +183,7 @@ entries:
     version: 2024.4.0
   - apiVersion: v2
     appVersion: 2024.3.0
-    created: "2024-08-29T20:16:21.909119+02:00"
+    created: "2024-10-02T18:24:34.625374+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -182,7 +212,7 @@ entries:
     - https://helm.techwolf12.nl/pretix-2024.3.0.tgz
     version: 2024.3.0
   - apiVersion: v2
-    created: "2024-08-29T20:16:21.901009+02:00"
+    created: "2024-10-02T18:24:34.617396+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -210,4 +240,4 @@ entries:
     urls:
     - https://helm.techwolf12.nl/pretix-2024.2.0.tgz
     version: 2024.2.0
-generated: "2024-08-29T20:16:21.890857+02:00"
+generated: "2024-10-02T18:24:34.60856+02:00"
