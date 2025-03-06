@@ -9,3 +9,6 @@ helm repo add techwolf12 https://helm.techwolf12.nl/
 # Repos
 ## Pretix
 Pretix is a event ticketing system. You can find more in [./pretix-helm](https://github.com/Techwolf12/charts/tree/main/pretix-helm) or on [Artifacthub](https://artifacthub.io/packages/helm/techwolf12/pretix).
+
+## Pocketbase
+Pocketbase is a selfhosted Firebase alternative.  You can find more in [./pocketbase](https://github.com/Techwolf12/pocketbase-helm) or on [Artifacthub](https://artifacthub.io/packages/helm/techwolf12/pocketbase).
