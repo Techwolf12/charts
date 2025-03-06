@@ -1,9 +1,28 @@
 apiVersion: v1
 entries:
+  pocketbase:
+  - apiVersion: v2
+    appVersion: v0.25.9
+    created: "2025-03-06T20:36:44.70056+01:00"
+    description: A Helm chart for deploying PocketBase.io as a K8S deployment
+    digest: 9659b56adea0bc9e327132c333834a2998a893b8a03b41c6607145b2182b2581
+    icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
+    maintainers:
+    - email: contact@techwolf12.nl
+      name: Chrsitiaan de Die le Clercq
+      url: https://techwolf12.nl/
+    name: pocketbase
+    sources:
+    - https://github.com/techwolf12/pocketbase-helm
+    - https://github.com/techwolf12/charts
+    type: application
+    urls:
+    - https://helm.techwolf12.nl/pocketbase-0.25.9.tgz
+    version: 0.25.9
   pretix:
   - apiVersion: v2
     appVersion: 2025.2.0
-    created: "2025-03-03T16:39:11.201977+01:00"
+    created: "2025-03-06T20:36:44.787279+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -33,7 +52,7 @@ entries:
     version: 2025.2.0
   - apiVersion: v2
     appVersion: 2025.1.0
-    created: "2025-03-03T16:39:11.195473+01:00"
+    created: "2025-03-06T20:36:44.779304+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -63,7 +82,7 @@ entries:
     version: 2025.1.0
   - apiVersion: v2
     appVersion: 2024.11.0
-    created: "2025-03-03T16:39:11.127875+01:00"
+    created: "2025-03-06T20:36:44.715935+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -93,7 +112,7 @@ entries:
     version: 2024.11.0
   - apiVersion: v2
     appVersion: 2024.10.0
-    created: "2025-03-03T16:39:11.119607+01:00"
+    created: "2025-03-06T20:36:44.708657+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -123,7 +142,7 @@ entries:
     version: 2024.10.0
   - apiVersion: v2
     appVersion: 2024.9.0
-    created: "2025-03-03T16:39:11.187766+01:00"
+    created: "2025-03-06T20:36:44.77262+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -153,7 +172,7 @@ entries:
     version: 2024.9.0
   - apiVersion: v2
     appVersion: 2024.8.0
-    created: "2025-03-03T16:39:11.180855+01:00"
+    created: "2025-03-06T20:36:44.765525+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -183,7 +202,7 @@ entries:
     version: 2024.8.0
   - apiVersion: v2
     appVersion: 2024.7.0
-    created: "2025-03-03T16:39:11.173362+01:00"
+    created: "2025-03-06T20:36:44.757817+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -213,7 +232,7 @@ entries:
     version: 2024.7.0
   - apiVersion: v2
     appVersion: 2024.6.0
-    created: "2025-03-03T16:39:11.16579+01:00"
+    created: "2025-03-06T20:36:44.751756+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -243,7 +262,7 @@ entries:
     version: 2024.6.0
   - apiVersion: v2
     appVersion: 2024.5.0
-    created: "2025-03-03T16:39:11.157265+01:00"
+    created: "2025-03-06T20:36:44.743702+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -273,7 +292,7 @@ entries:
     version: 2024.5.0
   - apiVersion: v2
     appVersion: 2024.4.0
-    created: "2025-03-03T16:39:11.150099+01:00"
+    created: "2025-03-06T20:36:44.736732+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -303,7 +322,7 @@ entries:
     version: 2024.4.0
   - apiVersion: v2
     appVersion: 2024.3.0
-    created: "2025-03-03T16:39:11.14257+01:00"
+    created: "2025-03-06T20:36:44.729812+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -332,7 +351,7 @@ entries:
     - https://helm.techwolf12.nl/pretix-2024.3.0.tgz
     version: 2024.3.0
   - apiVersion: v2
-    created: "2025-03-03T16:39:11.135525+01:00"
+    created: "2025-03-06T20:36:44.723092+01:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -360,4 +379,4 @@ entries:
     urls:
     - https://helm.techwolf12.nl/pretix-2024.2.0.tgz
     version: 2024.2.0
-generated: "2025-03-03T16:39:11.110242+01:00"
+generated: "2025-03-06T20:36:44.699974+01:00"
