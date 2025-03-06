@@ -1,0 +1,236 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+        "cronSchedule": {
+            "type": "string"
+        },
+        "env": {
+            "properties": {
+                "PRETIX_CELERY_BACKEND": {
+                    "type": "string"
+                },
+                "PRETIX_CELERY_BROKER": {
+                    "type": "string"
+                },
+                "PRETIX_DATABASE_BACKEND": {
+                    "type": "string"
+                },
+                "PRETIX_DATABASE_HOST": {
+                    "type": "string"
+                },
+                "PRETIX_DATABASE_NAME": {
+                    "type": "string"
+                },
+                "PRETIX_DATABASE_PASSWORD": {
+                    "type": "string"
+                },
+                "PRETIX_DATABASE_USER": {
+                    "type": "string"
+                },
+                "PRETIX_MAIL_FROM": {
+                    "type": "string"
+                },
+                "PRETIX_MAIL_HOST": {
+                    "type": "null"
+                },
+                "PRETIX_MAIL_PASSWORD": {
+                    "type": "null"
+                },
+                "PRETIX_MAIL_PORT": {
+                    "type": "integer"
+                },
+                "PRETIX_MAIL_TLS": {
+                    "type": "boolean"
+                },
+                "PRETIX_MAIL_USER": {
+                    "type": "null"
+                },
+                "PRETIX_PRETIX_CURRENCY": {
+                    "type": "string"
+                },
+                "PRETIX_PRETIX_DATADIR": {
+                    "type": "string"
+                },
+                "PRETIX_PRETIX_INSTANCE_NAME": {
+                    "type": "string"
+                },
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR": {
+                    "type": "string"
+                },
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO": {
+                    "type": "string"
+                },
+                "PRETIX_PRETIX_URL": {
+                    "type": "string"
+                },
+                "PRETIX_REDIS_LOCATION": {
+                    "type": "string"
+                },
+                "PRETIX_REDIS_SESSIONS": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "image": {
+            "properties": {
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "pullSecrets": {
+                    "type": "array"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ingress": {
+            "properties": {
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "hosts": {
+                    "items": {
+                        "properties": {
+                            "host": {
+                                "type": "string"
+                            },
+                            "paths": {
+                                "items": {
+                                    "properties": {
+                                        "path": {
+                                            "type": "string"
+                                        },
+                                        "pathType": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "ingressClassName": {
+                    "type": "string"
+                },
+                "tls": {
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "labels": {
+            "type": "array"
+        },
+        "persistence": {
+            "properties": {
+                "accessMode": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "storageClassName": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "postgresql": {
+            "properties": {
+                "auth": {
+                    "properties": {
+                        "database": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        },
+                        "postgresPassword": {
+                            "type": "string"
+                        },
+                        "username": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "redis": {
+            "properties": {
+                "architecture": {
+                    "type": "string"
+                },
+                "auth": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "replicas": {
+            "properties": {
+                "pretixWeb": {
+                    "type": "integer"
+                },
+                "pretixWorker": {
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "resources": {
+            "properties": {
+                "limits": {
+                    "properties": {
+                        "memory": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "requests": {
+                    "properties": {
+                        "cpu": {
+                            "type": "string"
+                        },
+                        "memory": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}
