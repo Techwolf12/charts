@@ -1,236 +1,834 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "image",
+        "replicas",
+        "cronSchedule",
+        "env",
+        "extraEnv",
+        "labels",
+        "resources",
+        "persistence",
+        "postgresql",
+        "redis",
+        "ingress"
+    ],
     "properties": {
-        "cronSchedule": {
-            "type": "string"
-        },
-        "env": {
-            "properties": {
-                "PRETIX_CELERY_BACKEND": {
-                    "type": "string"
-                },
-                "PRETIX_CELERY_BROKER": {
-                    "type": "string"
-                },
-                "PRETIX_DATABASE_BACKEND": {
-                    "type": "string"
-                },
-                "PRETIX_DATABASE_HOST": {
-                    "type": "string"
-                },
-                "PRETIX_DATABASE_NAME": {
-                    "type": "string"
-                },
-                "PRETIX_DATABASE_PASSWORD": {
-                    "type": "string"
-                },
-                "PRETIX_DATABASE_USER": {
-                    "type": "string"
-                },
-                "PRETIX_MAIL_FROM": {
-                    "type": "string"
-                },
-                "PRETIX_MAIL_HOST": {
-                    "type": "null"
-                },
-                "PRETIX_MAIL_PASSWORD": {
-                    "type": "null"
-                },
-                "PRETIX_MAIL_PORT": {
-                    "type": "integer"
-                },
-                "PRETIX_MAIL_TLS": {
-                    "type": "boolean"
-                },
-                "PRETIX_MAIL_USER": {
-                    "type": "null"
-                },
-                "PRETIX_PRETIX_CURRENCY": {
-                    "type": "string"
-                },
-                "PRETIX_PRETIX_DATADIR": {
-                    "type": "string"
-                },
-                "PRETIX_PRETIX_INSTANCE_NAME": {
-                    "type": "string"
-                },
-                "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR": {
-                    "type": "string"
-                },
-                "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO": {
-                    "type": "string"
-                },
-                "PRETIX_PRETIX_URL": {
-                    "type": "string"
-                },
-                "PRETIX_REDIS_LOCATION": {
-                    "type": "string"
-                },
-                "PRETIX_REDIS_SESSIONS": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
         "image": {
+            "type": "object",
+            "default": {},
+            "title": "The image Schema",
+            "required": [
+                "repository",
+                "tag",
+                "pullPolicy",
+                "pullSecrets"
+            ],
             "properties": {
-                "pullPolicy": {
-                    "type": "string"
-                },
-                "pullSecrets": {
-                    "type": "array"
-                },
                 "repository": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "title": "The repository Schema",
+                    "examples": [
+                        "pretix/standalone"
+                    ]
                 },
                 "tag": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "title": "The tag Schema",
+                    "examples": [
+                        "2025.3.0"
+                    ]
+                },
+                "pullPolicy": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pullPolicy Schema",
+                    "examples": [
+                        "IfNotPresent"
+                    ]
+                },
+                "pullSecrets": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The pullSecrets Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
                 }
             },
-            "type": "object"
-        },
-        "ingress": {
-            "properties": {
-                "annotations": {
-                    "properties": {},
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "hosts": {
-                    "items": {
-                        "properties": {
-                            "host": {
-                                "type": "string"
-                            },
-                            "paths": {
-                                "items": {
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "pathType": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "type": "array"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "ingressClassName": {
-                    "type": "string"
-                },
-                "tls": {
-                    "type": "array"
-                }
-            },
-            "type": "object"
-        },
-        "labels": {
-            "type": "array"
-        },
-        "persistence": {
-            "properties": {
-                "accessMode": {
-                    "type": "string"
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "size": {
-                    "type": "string"
-                },
-                "storageClassName": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "postgresql": {
-            "properties": {
-                "auth": {
-                    "properties": {
-                        "database": {
-                            "type": "string"
-                        },
-                        "password": {
-                            "type": "string"
-                        },
-                        "postgresPassword": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
-        },
-        "redis": {
-            "properties": {
-                "architecture": {
-                    "type": "string"
-                },
-                "auth": {
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        }
-                    },
-                    "type": "object"
-                },
-                "enabled": {
-                    "type": "boolean"
-                }
-            },
-            "type": "object"
+            "examples": [{
+                "repository": "pretix/standalone",
+                "tag": "2025.3.0",
+                "pullPolicy": "IfNotPresent",
+                "pullSecrets": []
+            }]
         },
         "replicas": {
+            "type": "object",
+            "default": {},
+            "title": "The replicas Schema",
+            "required": [
+                "pretixWeb",
+                "pretixWorker"
+            ],
             "properties": {
                 "pretixWeb": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The pretixWeb Schema",
+                    "examples": [
+                        1
+                    ]
                 },
                 "pretixWorker": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The pretixWorker Schema",
+                    "examples": [
+                        1
+                    ]
                 }
             },
-            "type": "object"
+            "examples": [{
+                "pretixWeb": 1,
+                "pretixWorker": 1
+            }]
+        },
+        "cronSchedule": {
+            "type": "string",
+            "default": "",
+            "title": "The cronSchedule Schema",
+            "examples": [
+                "*/30 * * * *"
+            ]
+        },
+        "env": {
+            "type": "object",
+            "default": {},
+            "title": "The env Schema",
+            "required": [
+                "PRETIX_PRETIX_INSTANCE_NAME",
+                "PRETIX_PRETIX_URL",
+                "PRETIX_PRETIX_CURRENCY",
+                "PRETIX_PRETIX_DATADIR",
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR",
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO",
+                "PRETIX_MAIL_FROM",
+                "PRETIX_MAIL_HOST",
+                "PRETIX_MAIL_USER",
+                "PRETIX_MAIL_PASSWORD",
+                "PRETIX_MAIL_PORT",
+                "PRETIX_MAIL_TLS",
+                "PRETIX_DATABASE_BACKEND",
+                "PRETIX_DATABASE_NAME",
+                "PRETIX_DATABASE_USER",
+                "PRETIX_DATABASE_PASSWORD",
+                "PRETIX_DATABASE_HOST",
+                "PRETIX_REDIS_LOCATION",
+                "PRETIX_REDIS_SESSIONS",
+                "PRETIX_CELERY_BACKEND",
+                "PRETIX_CELERY_BROKER"
+            ],
+            "properties": {
+                "PRETIX_PRETIX_INSTANCE_NAME": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_PRETIX_INSTANCE_NAME Schema",
+                    "examples": [
+                        "Pretix Helm"
+                    ]
+                },
+                "PRETIX_PRETIX_URL": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_PRETIX_URL Schema",
+                    "examples": [
+                        "http://localhost"
+                    ]
+                },
+                "PRETIX_PRETIX_CURRENCY": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_PRETIX_CURRENCY Schema",
+                    "examples": [
+                        "EUR"
+                    ]
+                },
+                "PRETIX_PRETIX_DATADIR": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_PRETIX_DATADIR Schema",
+                    "examples": [
+                        "/data"
+                    ]
+                },
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The PRETIX_PRETIX_TRUST_X_FORWARDED_FOR Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "PRETIX_MAIL_FROM": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_MAIL_FROM Schema",
+                    "examples": [
+                        "test@example.com"
+                    ]
+                },
+                "PRETIX_MAIL_HOST": {
+                    "type": "string",
+                    "default": null,
+                    "title": "The PRETIX_MAIL_HOST Schema",
+                    "examples": [
+                        null
+                    ]
+                },
+                "PRETIX_MAIL_USER": {
+                    "type": "string",
+                    "default": null,
+                    "title": "The PRETIX_MAIL_USER Schema",
+                    "examples": [
+                        null
+                    ]
+                },
+                "PRETIX_MAIL_PASSWORD": {
+                    "type": "string",
+                    "default": null,
+                    "title": "The PRETIX_MAIL_PASSWORD Schema",
+                    "examples": [
+                        null
+                    ]
+                },
+                "PRETIX_MAIL_PORT": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The PRETIX_MAIL_PORT Schema",
+                    "examples": [
+                        587
+                    ]
+                },
+                "PRETIX_MAIL_TLS": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The PRETIX_MAIL_TLS Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "PRETIX_DATABASE_BACKEND": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_DATABASE_BACKEND Schema",
+                    "examples": [
+                        "postgresql"
+                    ]
+                },
+                "PRETIX_DATABASE_NAME": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_DATABASE_NAME Schema",
+                    "examples": [
+                        "pretix"
+                    ]
+                },
+                "PRETIX_DATABASE_USER": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_DATABASE_USER Schema",
+                    "examples": [
+                        "pretix"
+                    ]
+                },
+                "PRETIX_DATABASE_PASSWORD": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_DATABASE_PASSWORD Schema",
+                    "examples": [
+                        "pretix"
+                    ]
+                },
+                "PRETIX_DATABASE_HOST": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_DATABASE_HOST Schema",
+                    "examples": [
+                        "pretix-postgresql"
+                    ]
+                },
+                "PRETIX_REDIS_LOCATION": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_REDIS_LOCATION Schema",
+                    "examples": [
+                        "redis://pretix-redis-master/0"
+                    ]
+                },
+                "PRETIX_REDIS_SESSIONS": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The PRETIX_REDIS_SESSIONS Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "PRETIX_CELERY_BACKEND": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_CELERY_BACKEND Schema",
+                    "examples": [
+                        "redis://pretix-redis-master/1"
+                    ]
+                },
+                "PRETIX_CELERY_BROKER": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The PRETIX_CELERY_BROKER Schema",
+                    "examples": [
+                        "redis://pretix-redis-master/2"
+                    ]
+                }
+            },
+            "examples": [{
+                "PRETIX_PRETIX_INSTANCE_NAME": "Pretix Helm",
+                "PRETIX_PRETIX_URL": "http://localhost",
+                "PRETIX_PRETIX_CURRENCY": "EUR",
+                "PRETIX_PRETIX_DATADIR": "/data",
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR": true,
+                "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO": true,
+                "PRETIX_MAIL_FROM": "test@example.com",
+                "PRETIX_MAIL_HOST": null,
+                "PRETIX_MAIL_USER": null,
+                "PRETIX_MAIL_PASSWORD": null,
+                "PRETIX_MAIL_PORT": 587,
+                "PRETIX_MAIL_TLS": true,
+                "PRETIX_DATABASE_BACKEND": "postgresql",
+                "PRETIX_DATABASE_NAME": "pretix",
+                "PRETIX_DATABASE_USER": "pretix",
+                "PRETIX_DATABASE_PASSWORD": "pretix",
+                "PRETIX_DATABASE_HOST": "pretix-postgresql",
+                "PRETIX_REDIS_LOCATION": "redis://pretix-redis-master/0",
+                "PRETIX_REDIS_SESSIONS": true,
+                "PRETIX_CELERY_BACKEND": "redis://pretix-redis-master/1",
+                "PRETIX_CELERY_BROKER": "redis://pretix-redis-master/2"
+            }]
+        },
+        "extraEnv": {
+            "type": "array",
+            "default": [],
+            "title": "The extraEnv Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "labels": {
+            "type": "array",
+            "default": [],
+            "title": "The labels Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
         },
         "resources": {
+            "type": "object",
+            "default": {},
+            "title": "The resources Schema",
+            "required": [
+                "limits",
+                "requests"
+            ],
             "properties": {
                 "limits": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The limits Schema",
+                    "required": [
+                        "memory"
+                    ],
                     "properties": {
                         "memory": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "",
+                            "title": "The memory Schema",
+                            "examples": [
+                                "4Gi"
+                            ]
                         }
                     },
-                    "type": "object"
+                    "examples": [{
+                        "memory": "4Gi"
+                    }]
                 },
                 "requests": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The requests Schema",
+                    "required": [
+                        "cpu",
+                        "memory"
+                    ],
                     "properties": {
                         "cpu": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "",
+                            "title": "The cpu Schema",
+                            "examples": [
+                                "500m"
+                            ]
                         },
                         "memory": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "",
+                            "title": "The memory Schema",
+                            "examples": [
+                                "1Gi"
+                            ]
                         }
                     },
-                    "type": "object"
+                    "examples": [{
+                        "cpu": "500m",
+                        "memory": "1Gi"
+                    }]
                 }
             },
-            "type": "object"
+            "examples": [{
+                "limits": {
+                    "memory": "4Gi"
+                },
+                "requests": {
+                    "cpu": "500m",
+                    "memory": "1Gi"
+                }
+            }]
+        },
+        "persistence": {
+            "type": "object",
+            "default": {},
+            "title": "The persistence Schema",
+            "required": [
+                "enabled",
+                "storageClassName",
+                "accessMode",
+                "size"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "storageClassName": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The storageClassName Schema",
+                    "examples": [
+                        "local-path"
+                    ]
+                },
+                "accessMode": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The accessMode Schema",
+                    "examples": [
+                        "ReadWriteOnce"
+                    ]
+                },
+                "size": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The size Schema",
+                    "examples": [
+                        "5Gi"
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "storageClassName": "local-path",
+                "accessMode": "ReadWriteOnce",
+                "size": "5Gi"
+            }]
+        },
+        "postgresql": {
+            "type": "object",
+            "default": {},
+            "title": "The postgresql Schema",
+            "required": [
+                "enabled",
+                "auth"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "auth": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The auth Schema",
+                    "required": [
+                        "database",
+                        "username",
+                        "password",
+                        "postgresPassword"
+                    ],
+                    "properties": {
+                        "database": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The database Schema",
+                            "examples": [
+                                "pretix"
+                            ]
+                        },
+                        "username": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The username Schema",
+                            "examples": [
+                                "pretix"
+                            ]
+                        },
+                        "password": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The password Schema",
+                            "examples": [
+                                "pretix"
+                            ]
+                        },
+                        "postgresPassword": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The postgresPassword Schema",
+                            "examples": [
+                                "supersecureadminpassword"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "database": "pretix",
+                        "username": "pretix",
+                        "password": "pretix",
+                        "postgresPassword": "supersecureadminpassword"
+                    }]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "auth": {
+                    "database": "pretix",
+                    "username": "pretix",
+                    "password": "pretix",
+                    "postgresPassword": "supersecureadminpassword"
+                }
+            }]
+        },
+        "redis": {
+            "type": "object",
+            "default": {},
+            "title": "The redis Schema",
+            "required": [
+                "enabled",
+                "architecture",
+                "auth"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "architecture": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The architecture Schema",
+                    "examples": [
+                        "standalone"
+                    ]
+                },
+                "auth": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The auth Schema",
+                    "required": [
+                        "enabled"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The enabled Schema",
+                            "examples": [
+                                false
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "enabled": false
+                    }]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "architecture": "standalone",
+                "auth": {
+                    "enabled": false
+                }
+            }]
+        },
+        "ingress": {
+            "type": "object",
+            "default": {},
+            "title": "The ingress Schema",
+            "required": [
+                "enabled",
+                "annotations",
+                "ingressClassName",
+                "hosts",
+                "tls"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The annotations Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "ingressClassName": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The ingressClassName Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "hosts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The hosts Schema",
+                    "items": {
+                        "type": "object",
+                        "default": {},
+                        "title": "A Schema",
+                        "required": [
+                            "host",
+                            "paths"
+                        ],
+                        "properties": {
+                            "host": {
+                                "type": "string",
+                                "default": "",
+                                "title": "The host Schema",
+                                "examples": [
+                                    "pretix.example.com"
+                                ]
+                            },
+                            "paths": {
+                                "type": "array",
+                                "default": [],
+                                "title": "The paths Schema",
+                                "items": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "A Schema",
+                                    "required": [
+                                        "path",
+                                        "pathType"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/"
+                                            ]
+                                        },
+                                        "pathType": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The pathType Schema",
+                                            "examples": [
+                                                "ImplementationSpecific"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/",
+                                        "pathType": "ImplementationSpecific"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "path": "/",
+                                        "pathType": "ImplementationSpecific"
+                                    }]
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "host": "pretix.example.com",
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "ImplementationSpecific"
+                            }]
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "host": "pretix.example.com",
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "ImplementationSpecific"
+                            }]
+                        }]
+                    ]
+                },
+                "tls": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The tls Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "annotations": {},
+                "ingressClassName": "",
+                "hosts": [{
+                    "host": "pretix.example.com",
+                    "paths": [{
+                        "path": "/",
+                        "pathType": "ImplementationSpecific"
+                    }]
+                }],
+                "tls": []
+            }]
         }
     },
-    "type": "object"
+    "examples": [{
+        "image": {
+            "repository": "pretix/standalone",
+            "tag": "2025.3.0",
+            "pullPolicy": "IfNotPresent",
+            "pullSecrets": []
+        },
+        "replicas": {
+            "pretixWeb": 1,
+            "pretixWorker": 1
+        },
+        "cronSchedule": "*/30 * * * *",
+        "env": {
+            "PRETIX_PRETIX_INSTANCE_NAME": "Pretix Helm",
+            "PRETIX_PRETIX_URL": "http://localhost",
+            "PRETIX_PRETIX_CURRENCY": "EUR",
+            "PRETIX_PRETIX_DATADIR": "/data",
+            "PRETIX_PRETIX_TRUST_X_FORWARDED_FOR": true,
+            "PRETIX_PRETIX_TRUST_X_FORWARDED_PROTO": true,
+            "PRETIX_MAIL_FROM": "test@example.com",
+            "PRETIX_MAIL_HOST": null,
+            "PRETIX_MAIL_USER": null,
+            "PRETIX_MAIL_PASSWORD": null,
+            "PRETIX_MAIL_PORT": 587,
+            "PRETIX_MAIL_TLS": true,
+            "PRETIX_DATABASE_BACKEND": "postgresql",
+            "PRETIX_DATABASE_NAME": "pretix",
+            "PRETIX_DATABASE_USER": "pretix",
+            "PRETIX_DATABASE_PASSWORD": "pretix",
+            "PRETIX_DATABASE_HOST": "pretix-postgresql",
+            "PRETIX_REDIS_LOCATION": "redis://pretix-redis-master/0",
+            "PRETIX_REDIS_SESSIONS": true,
+            "PRETIX_CELERY_BACKEND": "redis://pretix-redis-master/1",
+            "PRETIX_CELERY_BROKER": "redis://pretix-redis-master/2"
+        },
+        "extraEnv": [],
+        "labels": [],
+        "resources": {
+            "limits": {
+                "memory": "4Gi"
+            },
+            "requests": {
+                "cpu": "500m",
+                "memory": "1Gi"
+            }
+        },
+        "persistence": {
+            "enabled": true,
+            "storageClassName": "local-path",
+            "accessMode": "ReadWriteOnce",
+            "size": "5Gi"
+        },
+        "postgresql": {
+            "enabled": true,
+            "auth": {
+                "database": "pretix",
+                "username": "pretix",
+                "password": "pretix",
+                "postgresPassword": "supersecureadminpassword"
+            }
+        },
+        "redis": {
+            "enabled": true,
+            "architecture": "standalone",
+            "auth": {
+                "enabled": false
+            }
+        },
+        "ingress": {
+            "enabled": false,
+            "annotations": {},
+            "ingressClassName": "",
+            "hosts": [{
+                "host": "pretix.example.com",
+                "paths": [{
+                    "path": "/",
+                    "pathType": "ImplementationSpecific"
+                }]
+            }],
+            "tls": []
+        }
+    }]
 }
