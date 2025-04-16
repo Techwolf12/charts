@@ -37,6 +37,9 @@ spec:
         - name: {{ $key }}
           value: {{ $value | quote }}
         {{- end }}
+        {{if .Values.extraEnv }}
+        {{ .Values.extraEnv | toYaml | nindent 8}}
+        {{- end}}
         resources:
           requests:
             memory: "{{ .Values.resources.requests.memory }}"

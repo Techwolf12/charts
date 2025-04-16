@@ -32,7 +32,10 @@ spec:
         - name: pretix-data
           mountPath: /data
         env:
-            {{- range $key, $value := .Values.env }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
-            {{- end }}
+          {{- range $key, $value := .Values.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+          {{if .Values.extraEnv }}
+          {{ .Values.extraEnv | toYaml | nindent 8}}
+          {{- end}}

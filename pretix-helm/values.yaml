@@ -35,6 +35,14 @@ env:
   PRETIX_CELERY_BACKEND: redis://pretix-redis-master/1
   PRETIX_CELERY_BROKER: redis://pretix-redis-master/2
 
+# For setting custom env vars, populated from secrets
+extraEnv: []
+  # - name: PRETIX_DATABASE_NAME
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: db_secret
+  #       key: dbname
+
 labels: []
 
 # Resource limits and requests
