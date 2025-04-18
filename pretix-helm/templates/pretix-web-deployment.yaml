@@ -18,16 +18,16 @@ spec:
         app: {{ include "pretix.fullname" . }}
         service: web
     spec:
+      imagePullSecrets:
+      {{- if .Values.image.pullSecrets }}
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+      {{- end }}
       containers:
       - name: pretix-web
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        imagePullSecrets:
-        {{- if .Values.image.pullSecrets }}
-        {{- range .Values.image.pullSecrets }}
-          - name: {{ . }}
-        {{- end }}
-        {{- end }}
         command: ["pretix"]
         args: ["web"]
         env:
