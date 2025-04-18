@@ -16,6 +16,10 @@ spec:
       - name: pretix-data
         persistentVolumeClaim:
           claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
+      {{- if .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       containers:
       - name: pretix-migrate
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}

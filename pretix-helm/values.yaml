@@ -85,3 +85,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls: []
+
+podSecurityContext:
+  # runAsNonRoot: true
+  fsGroup: 9968
