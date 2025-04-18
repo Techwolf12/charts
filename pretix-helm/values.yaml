@@ -26,10 +26,10 @@ env:
   PRETIX_MAIL_PORT: 587
   PRETIX_MAIL_TLS: True
   PRETIX_DATABASE_BACKEND: postgresql
-  PRETIX_DATABASE_NAME: pretix
-  PRETIX_DATABASE_USER: pretix
-  PRETIX_DATABASE_PASSWORD: pretix
-  PRETIX_DATABASE_HOST: pretix-postgresql
+  # PRETIX_DATABASE_NAME: pretix
+  # PRETIX_DATABASE_USER: pretix
+  # PRETIX_DATABASE_PASSWORD: pretix
+  # PRETIX_DATABASE_HOST: pretix-postgresql
   PRETIX_REDIS_LOCATION: redis://pretix-redis-master/0
   PRETIX_REDIS_SESSIONS: true
   PRETIX_CELERY_BACKEND: redis://pretix-redis-master/1
@@ -85,3 +85,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls: []
+
+podSecurityContext:
+  # runAsNonRoot: true
+  fsGroup: 9968

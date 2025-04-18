@@ -18,16 +18,16 @@ spec:
         app: {{ include "pretix.fullname" . }}
         service: worker
     spec:
+      imagePullSecrets:
+      {{- if .Values.image.pullSecrets }}
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end }}
+      {{- end }}
       containers:
       - name: pretix-worker
         image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        imagePullSecrets:
-        {{- if .Values.image.pullSecrets }}
-        {{- range .Values.image.pullSecrets }}
-          - name: {{ . }}
-        {{- end }}
-        {{- end }}
         command: ["pretix"]
         args: ["taskworker"]
         env:
@@ -55,3 +55,7 @@ spec:
       - name: pretix-data
         persistentVolumeClaim:
           claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
+      {{- if .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
