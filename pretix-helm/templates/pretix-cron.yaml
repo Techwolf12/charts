@@ -15,16 +15,20 @@ spec:
             - name: pretix-data
               persistentVolumeClaim:
                 claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
+            {{- if .Values.podSecurityContext }}
+            securityContext:
+              {{- toYaml .Values.podSecurityContext | nindent 12 }}
+            {{- end }}
+            imagePullSecrets:
+            {{- if .Values.image.pullSecrets }}
+            {{- range .Values.image.pullSecrets }}
+              - name: {{ . }}
+            {{- end }}
+            {{- end }}
             containers:
             - name: pretix-cron
               image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
-              imagePullSecrets:
-              {{- if .Values.image.pullSecrets }}
-              {{- range .Values.image.pullSecrets }}
-                - name: {{ . }}
-              {{- end }}
-              {{- end }}
               command: ["pretix"]
               args: ["cron"]
               volumeMounts:
@@ -36,5 +40,5 @@ spec:
                 value: {{ $value | quote }}
               {{- end }}
               {{if .Values.extraEnv }}
-              {{ .Values.extraEnv | toYaml | nindent 8}}
+              {{ .Values.extraEnv | toYaml | nindent 14 }}
               {{- end}}
