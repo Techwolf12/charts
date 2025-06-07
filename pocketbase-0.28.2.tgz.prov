@@ -1,0 +1,32 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+apiVersion: v2
+appVersion: v0.28.2
+description: A Helm chart for deploying PocketBase.io as a K8S deployment
+icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
+maintainers:
+- - email: contact@techwolf12.nl
+  name: Chrsitiaan de Die le Clercq
+  url: https://techwolf12.nl/
+name: pocketbase
+sources:
+- - https://github.com/techwolf12/pocketbase-helm
+- - https://github.com/techwolf12/charts
+type: application
+version: 0.28.2
+
+...
+files:
+  pocketbase-0.28.2.tgz: sha256:9bb55e3114de57a78169977044df3c479c073b73de4dd52928ddbf7cabd0f565
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmhEfi8ACgkQfNhimD/7
+mYoTiwf7B1fsEeHSE6POLMhvcJsk7pse+lVNBMLMEit+4cZETHdLMiiNS1ZfoHNk
+yNgwJFFATW41X47dvzKVWtTEpWHgFIJR5lN2zOQTH+yXAGmXHOctLR6zUP9IBEU1
+nhqCIFuIWuM5ZTalbBhLbqmR7IM0uO9Iy6yG1yi1Z5i1kWzwxmG88qFMgzp6++4U
+zxz0A+lkrSrleqC+gX2O4Q6kkc6uQO9BuEHhK7j3ja696tpXwrwa8FhtmWg49e76
+OSrY1z5QST3Ml7vlcFkUqu0/grsRf5uuhI0QQb2bVsRzQonDSXfWCqfLq6pkG+hp
+RjK3NrrAv6aBi0Oc9iUGWNJSU2KP4w==
+=DjwL
+-----END PGP SIGNATURE-----

@@ -2,8 +2,26 @@ apiVersion: v1
 entries:
   pocketbase:
   - apiVersion: v2
+    appVersion: v0.28.2
+    created: "2025-06-07T20:00:23.118989+02:00"
+    description: A Helm chart for deploying PocketBase.io as a K8S deployment
+    digest: 9bb55e3114de57a78169977044df3c479c073b73de4dd52928ddbf7cabd0f565
+    icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
+    maintainers:
+    - email: contact@techwolf12.nl
+      name: Chrsitiaan de Die le Clercq
+      url: https://techwolf12.nl/
+    name: pocketbase
+    sources:
+    - https://github.com/techwolf12/pocketbase-helm
+    - https://github.com/techwolf12/charts
+    type: application
+    urls:
+    - https://helm.techwolf12.nl/pocketbase-0.28.2.tgz
+    version: 0.28.2
+  - apiVersion: v2
     appVersion: v0.27.2
-    created: "2025-05-02T16:04:23.164072+02:00"
+    created: "2025-06-07T20:00:23.118682+02:00"
     description: A Helm chart for deploying PocketBase.io as a K8S deployment
     digest: 70cd50409a631d6f1cedea407ebfc240c278ca853e5bdefb6d4be58821ffa581
     icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
@@ -21,7 +39,7 @@ entries:
     version: 0.27.2
   - apiVersion: v2
     appVersion: v0.27.0
-    created: "2025-05-02T16:04:23.16379+02:00"
+    created: "2025-06-07T20:00:23.117906+02:00"
     description: A Helm chart for deploying PocketBase.io as a K8S deployment
     digest: 4fac17a7cfaacdd616d8ac7e0705249b22c35162e53c25d933907f8ffd1e82b7
     icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
@@ -39,7 +57,7 @@ entries:
     version: 0.27.0
   - apiVersion: v2
     appVersion: v0.25.9
-    created: "2025-05-02T16:04:23.163316+02:00"
+    created: "2025-06-07T20:00:23.117446+02:00"
     description: A Helm chart for deploying PocketBase.io as a K8S deployment
     digest: 9659b56adea0bc9e327132c333834a2998a893b8a03b41c6607145b2182b2581
     icon: https://raw.githubusercontent.com/techwolf12/pocketbase-helm/main/icon.png
@@ -57,8 +75,38 @@ entries:
     version: 0.25.9
   pretix:
   - apiVersion: v2
+    appVersion: 2025.5.0
+    created: "2025-06-07T20:00:23.230231+02:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.1.2
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.0.1
+    description: Reinventing ticket presales, one ticket at a time.
+    digest: 596fd4a0664fba4301008b77f764ce6095297ba02a061e7acb6e5c433d85b79d
+    icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
+    keywords:
+    - event-tickets
+    maintainers:
+    - email: contact@techwolf12.nl
+      name: Chrsitiaan de Die le Clercq
+      url: https://techwolf12.nl/
+    name: pretix
+    sources:
+    - https://github.com/pretix/pretix
+    - https://github.com/techwolf12/charts
+    - https://hub.docker.com/r/pretix/standalone
+    type: application
+    urls:
+    - https://helm.techwolf12.nl/pretix-2025.5.0.tgz
+    version: 2025.5.0
+  - apiVersion: v2
     appVersion: 2025.4.0
-    created: "2025-05-02T16:04:23.268279+02:00"
+    created: "2025-06-07T20:00:23.223356+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -88,7 +136,7 @@ entries:
     version: 2025.4.0
   - apiVersion: v2
     appVersion: 2025.3.0
-    created: "2025-05-02T16:04:23.261404+02:00"
+    created: "2025-06-07T20:00:23.215106+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -118,7 +166,7 @@ entries:
     version: 2025.3.0
   - apiVersion: v2
     appVersion: 2025.2.0
-    created: "2025-05-02T16:04:23.254382+02:00"
+    created: "2025-06-07T20:00:23.207316+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -148,7 +196,7 @@ entries:
     version: 2025.2.0
   - apiVersion: v2
     appVersion: 2025.1.0
-    created: "2025-05-02T16:04:23.247473+02:00"
+    created: "2025-06-07T20:00:23.20017+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -178,7 +226,7 @@ entries:
     version: 2025.1.0
   - apiVersion: v2
     appVersion: 2024.11.0
-    created: "2025-05-02T16:04:23.182829+02:00"
+    created: "2025-06-07T20:00:23.135485+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -208,7 +256,7 @@ entries:
     version: 2024.11.0
   - apiVersion: v2
     appVersion: 2024.10.0
-    created: "2025-05-02T16:04:23.173875+02:00"
+    created: "2025-06-07T20:00:23.12819+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -238,7 +286,7 @@ entries:
     version: 2024.10.0
   - apiVersion: v2
     appVersion: 2024.9.0
-    created: "2025-05-02T16:04:23.24043+02:00"
+    created: "2025-06-07T20:00:23.193508+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -268,7 +316,7 @@ entries:
     version: 2024.9.0
   - apiVersion: v2
     appVersion: 2024.8.0
-    created: "2025-05-02T16:04:23.233015+02:00"
+    created: "2025-06-07T20:00:23.18632+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -298,7 +346,7 @@ entries:
     version: 2024.8.0
   - apiVersion: v2
     appVersion: 2024.7.0
-    created: "2025-05-02T16:04:23.226262+02:00"
+    created: "2025-06-07T20:00:23.179+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -328,7 +376,7 @@ entries:
     version: 2024.7.0
   - apiVersion: v2
     appVersion: 2024.6.0
-    created: "2025-05-02T16:04:23.218641+02:00"
+    created: "2025-06-07T20:00:23.171861+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -358,7 +406,7 @@ entries:
     version: 2024.6.0
   - apiVersion: v2
     appVersion: 2024.5.0
-    created: "2025-05-02T16:04:23.211704+02:00"
+    created: "2025-06-07T20:00:23.164379+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -388,7 +436,7 @@ entries:
     version: 2024.5.0
   - apiVersion: v2
     appVersion: 2024.4.0
-    created: "2025-05-02T16:04:23.204051+02:00"
+    created: "2025-06-07T20:00:23.156622+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -418,7 +466,7 @@ entries:
     version: 2024.4.0
   - apiVersion: v2
     appVersion: 2024.3.0
-    created: "2025-05-02T16:04:23.196686+02:00"
+    created: "2025-06-07T20:00:23.15002+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -447,7 +495,7 @@ entries:
     - https://helm.techwolf12.nl/pretix-2024.3.0.tgz
     version: 2024.3.0
   - apiVersion: v2
-    created: "2025-05-02T16:04:23.190048+02:00"
+    created: "2025-06-07T20:00:23.143052+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -475,4 +523,4 @@ entries:
     urls:
     - https://helm.techwolf12.nl/pretix-2024.2.0.tgz
     version: 2024.2.0
-generated: "2025-05-02T16:04:23.161385+02:00"
+generated: "2025-06-07T20:00:23.116922+02:00"
