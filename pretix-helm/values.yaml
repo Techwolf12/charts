@@ -1,7 +1,7 @@
 # Pretix image configuration
 image:
   repository: pretix/standalone
-  tag: 2025.8.0
+  tag: 2025.9.0
   pullPolicy: IfNotPresent
   pullSecrets: []
 
