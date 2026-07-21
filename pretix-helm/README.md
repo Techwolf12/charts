@@ -26,10 +26,10 @@ You can then override `image.repository` and `image.tag` with your values.
 
 # Dependencies
 By default, this chart installs additional, dependent charts:
-* postgresql
-* redis
+* postgres (via the [groundhog2k/postgres](https://github.com/groundhog2k/helm-charts) chart, using the official `postgres` image)
+* valkey (via the [groundhog2k/valkey](https://github.com/groundhog2k/helm-charts) chart, using the official `valkey/valkey` image)
 
-To disable this dependency during installation, set `postgresql.enabled` and `redis.enabled` to `false`.
+To disable this dependency during installation, set `postgres.enabled` and `valkey.enabled` to `false`.
 
 # Uninstall chart
 ```
@@ -44,6 +44,18 @@ helm upgrade pretix techwolf12/pretix --install
 ```
 
 Breaking changes will be listed below.
+
+## 2026.x
+Bitnami discontinued its free public Helm chart catalog, so the bundled `postgresql` and `redis` dependencies
+(previously from `charts.bitnami.com`) were replaced with `postgres` and `valkey` from
+[groundhog2k/helm-charts](https://github.com/groundhog2k/helm-charts), which wrap the plain upstream `postgres`
+and `valkey/valkey` Docker images. This is a breaking change:
+* The `postgresql.*` values key is now `postgres.*`, with a different structure (see below).
+* The `redis.*` values key is now `valkey.*`. Valkey is a BSD-licensed, drop-in-compatible fork of Redis.
+* The default database hostname changed from `pretix-postgresql` to `pretix-postgres`.
+* The default cache/broker hostname changed from `pretix-redis-master` to `pretix-valkey`.
+* If you were relying on the default `env.PRETIX_REDIS_LOCATION` / `PRETIX_CELERY_BACKEND` / `PRETIX_CELERY_BROKER`
+  values, update them to point at `pretix-valkey` (or set your own if you use `fullnameOverride`).
 
 # Parameters
 
@@ -87,11 +99,11 @@ The syntax is `PRETIX_SECTION_CONFIG`. For example, to configure the setting `pa
 | env.PRETIX_DATABASE_NAME                  | Database name, if using dependecy postgresql, make sure that it matches                            | pretix                        |
 | env.PRETIX_DATABASE_USER                  | Database user, if using dependecy postgresql, make sure that it matches                            | pretix                        |
 | env.PRETIX_DATABASE_PASSWORD              | Database password, if using dependecy postgresql, make sure that it matches                        | pretix                        |
-| env.PRETIX_DATABASE_HOST                  | Database Hostname, if using dependecy postgresql, this is `helm release name-postgresql`           | pretix-postgresql             |
-| env.PRETIX_REDIS_LOCATION                 | Redis server, if using embedded Redis, this is `helm release name-redis-master`                    | redis://pretix-redis-master/0 |
-| env.PRETIX_REDIS_SESSIONS                 | Should we use Redis for sessions                                                                   | true                          |
-| env.PRETIX_CELERY_BACKEND                 | Redis server for Celery backend, if using embedded Redis, this is `helm release name-redis-master` | redis://pretix-redis-master/1 |
-| env.PRETIX_CELERY_BROKER                  | Redis server for Celery Broker, if using embedded Redis, this is `helm release name-redis-master`  | redis://pretix-redis-master/2 |
+| env.PRETIX_DATABASE_HOST                  | Database Hostname, if using dependecy postgres, this is `helm release name-postgres`               | pretix-postgres               |
+| env.PRETIX_REDIS_LOCATION                 | Redis/Valkey server, if using embedded Valkey, this is `helm release name-valkey`                  | redis://pretix-valkey/0       |
+| env.PRETIX_REDIS_SESSIONS                 | Should we use Redis/Valkey for sessions                                                            | true                          |
+| env.PRETIX_CELERY_BACKEND                 | Redis/Valkey server for Celery backend, if using embedded Valkey, this is `helm release name-valkey` | redis://pretix-valkey/1     |
+| env.PRETIX_CELERY_BROKER                  | Redis/Valkey server for Celery Broker, if using embedded Valkey, this is `helm release name-valkey`  | redis://pretix-valkey/2     |
 
 ## Labels
 | Name   | Description                              | Default Value |
@@ -113,24 +125,23 @@ The syntax is `PRETIX_SECTION_CONFIG`. For example, to configure the setting `pa
 | persistence.accessMode       | PVC access mode                                      | ReadWriteOnce |
 | persistence.size             | PVC disk size                                        | 5Gi           |
 
-## Postgresql
-More options can be overridden from the Postgresql chart here.
+## Postgres
+More options can be overridden from the [postgres chart](https://github.com/groundhog2k/helm-charts/tree/master/charts/postgres) here.
 
-| Name                             | Description                                                               | Default Value            |
-|----------------------------------|---------------------------------------------------------------------------|--------------------------|
-| postgresql.enabled               | If the dependency Postgresql is enabled, set to false if you use your own | true                     |
-| postgresql.auth.database         | Pretix database name, make sure it matches in the env                     | pretix                   |
-| postgresql.auth.username         | Pretix database username, make sure it matches in the env                 | pretix                   |
-| postgresql.auth.password         | Pretix database password, make sure it matches in the env                 | pretix                   |
-| postgresql.auth.postgresPassword | Password for the `postgres` admin user                                    | supersecureadminpassword |
+| Name                                  | Description                                                               | Default Value            |
+|----------------------------------------|---------------------------------------------------------------------------|--------------------------|
+| postgres.enabled                       | If the dependency Postgres is enabled, set to false if you use your own  | true                     |
+| postgres.settings.superuser.value      | Superuser (admin) account name                                            | postgres                 |
+| postgres.settings.superuserPassword.value | Password for the `postgres` admin user                                | supersecureadminpassword |
+| postgres.userDatabase.name.value       | Pretix database name, make sure it matches in the env                    | pretix                   |
+| postgres.userDatabase.user.value       | Pretix database username, make sure it matches in the env                | pretix                   |
+| postgres.userDatabase.password.value   | Pretix database password, make sure it matches in the env                | pretix                   |
 
-## Redis
-More options can be overridden from the Redis chart here.
-| Name               | Description                                                          | Default Value |
-|--------------------|----------------------------------------------------------------------|---------------|
-| redis.enabled      | If the dependency Redis is enabled, set to false if you use your own | true          |
-| redis.architecture | If Redis should run in replica or standalone                         | standalone    |
-| redis.auth.enabled | If Redis authentication is enabled                                   | false         |
+## Valkey
+More options can be overridden from the [valkey chart](https://github.com/groundhog2k/helm-charts/tree/master/charts/valkey) here.
+| Name           | Description                                                            | Default Value |
+|-----------------|-------------------------------------------------------------------------|---------------|
+| valkey.enabled | If the dependency Valkey is enabled, set to false if you use your own  | true          |
 
 
 ## Ingress

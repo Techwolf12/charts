@@ -13,8 +13,8 @@
         "labels",
         "resources",
         "persistence",
-        "postgresql",
-        "redis",
+        "postgres",
+        "valkey",
         "ingress"
     ],
     "properties": {
@@ -264,7 +264,7 @@
                     "default": "",
                     "title": "The PRETIX_DATABASE_HOST Schema",
                     "examples": [
-                        "pretix-postgresql"
+                        "pretix-postgres"
                     ]
                 },
                 "PRETIX_REDIS_LOCATION": {
@@ -272,7 +272,7 @@
                     "default": "",
                     "title": "The PRETIX_REDIS_LOCATION Schema",
                     "examples": [
-                        "redis://pretix-redis-master/0"
+                        "redis://pretix-valkey/0"
                     ]
                 },
                 "PRETIX_REDIS_SESSIONS": {
@@ -288,7 +288,7 @@
                     "default": "",
                     "title": "The PRETIX_CELERY_BACKEND Schema",
                     "examples": [
-                        "redis://pretix-redis-master/1"
+                        "redis://pretix-valkey/1"
                     ]
                 },
                 "PRETIX_CELERY_BROKER": {
@@ -296,7 +296,7 @@
                     "default": "",
                     "title": "The PRETIX_CELERY_BROKER Schema",
                     "examples": [
-                        "redis://pretix-redis-master/2"
+                        "redis://pretix-valkey/2"
                     ]
                 }
             },
@@ -465,13 +465,14 @@
                 "size": "5Gi"
             }]
         },
-        "postgresql": {
+        "postgres": {
             "type": "object",
             "default": {},
-            "title": "The postgresql Schema",
+            "title": "The postgres Schema",
             "required": [
                 "enabled",
-                "auth"
+                "settings",
+                "userDatabase"
             ],
             "properties": {
                 "enabled": {
@@ -482,76 +483,183 @@
                         true
                     ]
                 },
-                "auth": {
+                "settings": {
                     "type": "object",
                     "default": {},
-                    "title": "The auth Schema",
+                    "title": "The settings Schema",
                     "required": [
-                        "database",
-                        "username",
-                        "password",
-                        "postgresPassword"
+                        "superuser",
+                        "superuserPassword"
                     ],
                     "properties": {
-                        "database": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The database Schema",
-                            "examples": [
-                                "pretix"
-                            ]
+                        "superuser": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The superuser Schema",
+                            "required": [
+                                "value"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        "postgres"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": "postgres"
+                            }]
                         },
-                        "username": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The username Schema",
-                            "examples": [
-                                "pretix"
-                            ]
-                        },
-                        "password": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The password Schema",
-                            "examples": [
-                                "pretix"
-                            ]
-                        },
-                        "postgresPassword": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The postgresPassword Schema",
-                            "examples": [
-                                "supersecureadminpassword"
-                            ]
+                        "superuserPassword": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The superuserPassword Schema",
+                            "required": [
+                                "value"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        "supersecureadminpassword"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": "supersecureadminpassword"
+                            }]
                         }
                     },
                     "examples": [{
-                        "database": "pretix",
-                        "username": "pretix",
-                        "password": "pretix",
-                        "postgresPassword": "supersecureadminpassword"
+                        "superuser": {
+                            "value": "postgres"
+                        },
+                        "superuserPassword": {
+                            "value": "supersecureadminpassword"
+                        }
+                    }]
+                },
+                "userDatabase": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The userDatabase Schema",
+                    "required": [
+                        "name",
+                        "user",
+                        "password"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The name Schema",
+                            "required": [
+                                "value"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        "pretix"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": "pretix"
+                            }]
+                        },
+                        "user": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The user Schema",
+                            "required": [
+                                "value"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        "pretix"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": "pretix"
+                            }]
+                        },
+                        "password": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The password Schema",
+                            "required": [
+                                "value"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The value Schema",
+                                    "examples": [
+                                        "pretix"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "value": "pretix"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "name": {
+                            "value": "pretix"
+                        },
+                        "user": {
+                            "value": "pretix"
+                        },
+                        "password": {
+                            "value": "pretix"
+                        }
                     }]
                 }
             },
             "examples": [{
                 "enabled": true,
-                "auth": {
-                    "database": "pretix",
-                    "username": "pretix",
-                    "password": "pretix",
-                    "postgresPassword": "supersecureadminpassword"
+                "settings": {
+                    "superuser": {
+                        "value": "postgres"
+                    },
+                    "superuserPassword": {
+                        "value": "supersecureadminpassword"
+                    }
+                },
+                "userDatabase": {
+                    "name": {
+                        "value": "pretix"
+                    },
+                    "user": {
+                        "value": "pretix"
+                    },
+                    "password": {
+                        "value": "pretix"
+                    }
                 }
             }]
         },
-        "redis": {
+        "valkey": {
             "type": "object",
             "default": {},
-            "title": "The redis Schema",
+            "title": "The valkey Schema",
             "required": [
-                "enabled",
-                "architecture",
-                "auth"
+                "enabled"
             ],
             "properties": {
                 "enabled": {
@@ -561,43 +669,10 @@
                     "examples": [
                         true
                     ]
-                },
-                "architecture": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The architecture Schema",
-                    "examples": [
-                        "standalone"
-                    ]
-                },
-                "auth": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The auth Schema",
-                    "required": [
-                        "enabled"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false
-                    }]
                 }
             },
             "examples": [{
-                "enabled": true,
-                "architecture": "standalone",
-                "auth": {
-                    "enabled": false
-                }
+                "enabled": true
             }]
         },
         "ingress": {
@@ -772,11 +847,11 @@
             "PRETIX_DATABASE_NAME": "pretix",
             "PRETIX_DATABASE_USER": "pretix",
             "PRETIX_DATABASE_PASSWORD": "pretix",
-            "PRETIX_DATABASE_HOST": "pretix-postgresql",
-            "PRETIX_REDIS_LOCATION": "redis://pretix-redis-master/0",
+            "PRETIX_DATABASE_HOST": "pretix-postgres",
+            "PRETIX_REDIS_LOCATION": "redis://pretix-valkey/0",
             "PRETIX_REDIS_SESSIONS": true,
-            "PRETIX_CELERY_BACKEND": "redis://pretix-redis-master/1",
-            "PRETIX_CELERY_BROKER": "redis://pretix-redis-master/2"
+            "PRETIX_CELERY_BACKEND": "redis://pretix-valkey/1",
+            "PRETIX_CELERY_BROKER": "redis://pretix-valkey/2"
         },
         "extraEnv": [],
         "labels": [],
@@ -795,21 +870,30 @@
             "accessMode": "ReadWriteOnce",
             "size": "5Gi"
         },
-        "postgresql": {
+        "postgres": {
             "enabled": true,
-            "auth": {
-                "database": "pretix",
-                "username": "pretix",
-                "password": "pretix",
-                "postgresPassword": "supersecureadminpassword"
+            "settings": {
+                "superuser": {
+                    "value": "postgres"
+                },
+                "superuserPassword": {
+                    "value": "supersecureadminpassword"
+                }
+            },
+            "userDatabase": {
+                "name": {
+                    "value": "pretix"
+                },
+                "user": {
+                    "value": "pretix"
+                },
+                "password": {
+                    "value": "pretix"
+                }
             }
         },
-        "redis": {
-            "enabled": true,
-            "architecture": "standalone",
-            "auth": {
-                "enabled": false
-            }
+        "valkey": {
+            "enabled": true
         },
         "ingress": {
             "enabled": false,

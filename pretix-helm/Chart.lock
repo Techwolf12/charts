@@ -1,9 +1,9 @@
 dependencies:
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 16.7.27
-- name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 19.6.4
-digest: sha256:2d3aaa21f018ea007f098d99541123a8ddf0419c3ea5eb82cdaa735bc2b87b62
-generated: "2025-09-20T14:16:30.047125434Z"
+- name: postgres
+  repository: https://groundhog2k.github.io/helm-charts/
+  version: 1.6.7
+- name: valkey
+  repository: https://groundhog2k.github.io/helm-charts/
+  version: 2.3.2
+digest: sha256:28d0868c19fe41f7f0f401237a8f61c568069579f8e7aabb07553aaa6ab90457
+generated: "2026-07-21T13:34:54.793106+02:00"

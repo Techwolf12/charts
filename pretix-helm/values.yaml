@@ -1,7 +1,7 @@
 # Pretix image configuration
 image:
   repository: pretix/standalone
-  tag: 2025.8.0
+  tag: 2026.6.0
   pullPolicy: IfNotPresent
   pullSecrets: []
 
@@ -29,11 +29,11 @@ env:
   # PRETIX_DATABASE_NAME: pretix
   # PRETIX_DATABASE_USER: pretix
   # PRETIX_DATABASE_PASSWORD: pretix
-  # PRETIX_DATABASE_HOST: pretix-postgresql
-  PRETIX_REDIS_LOCATION: redis://pretix-redis-master/0
+  # PRETIX_DATABASE_HOST: pretix-postgres
+  PRETIX_REDIS_LOCATION: redis://pretix-valkey/0
   PRETIX_REDIS_SESSIONS: true
-  PRETIX_CELERY_BACKEND: redis://pretix-redis-master/1
-  PRETIX_CELERY_BROKER: redis://pretix-redis-master/2
+  PRETIX_CELERY_BACKEND: redis://pretix-valkey/1
+  PRETIX_CELERY_BROKER: redis://pretix-valkey/2
 
 # For setting custom env vars, populated from secrets
 extraEnv: []
@@ -60,19 +60,26 @@ persistence:
   accessMode: ReadWriteOnce
   size: 5Gi
 
-postgresql:
+# The Bitnami postgresql/redis charts were pulled from the free public catalog,
+# so this chart now depends on the groundhog2k postgres/valkey charts instead,
+# which wrap the plain upstream postgres/valkey docker images.
+postgres:
   enabled: true
-  auth:
-    database: pretix
-    username: pretix
-    password: pretix
-    postgresPassword: supersecureadminpassword
+  settings:
+    superuser:
+      value: postgres
+    superuserPassword:
+      value: supersecureadminpassword
+  userDatabase:
+    name:
+      value: pretix
+    user:
+      value: pretix
+    password:
+      value: pretix
 
-redis:
+valkey:
   enabled: true
-  architecture: standalone
-  auth:
-    enabled: false
 
 # Ingress configuration (disabled by default)
 ingress:

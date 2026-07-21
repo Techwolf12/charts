@@ -1,20 +1,20 @@
 name: pretix
 description: Reinventing ticket presales, one ticket at a time.
 type: application
-version: 2025.8.0
-appVersion: 2025.8.0
+version: 2026.6.0
+appVersion: 2026.6.0
 apiVersion: v2
 keywords:
   - event-tickets
 dependencies:
-  - name: postgresql
-    version: "16.7.27"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: postgresql.enabled
-  - name: redis
-    version: "19.6.4"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: redis.enabled
+  - name: postgres
+    version: "1.6.7"
+    repository: "https://groundhog2k.github.io/helm-charts/"
+    condition: postgres.enabled
+  - name: valkey
+    version: "2.3.2"
+    repository: "https://groundhog2k.github.io/helm-charts/"
+    condition: valkey.enabled
 sources:
   - https://github.com/pretix/pretix
   - https://github.com/techwolf12/charts
