@@ -1,0 +1,87 @@
+# Maintainer tasks for the pretix Helm chart.
+# Run `just` or `just --list` to see all available recipes.
+#
+# Requires: helm, kubeconform, yamllint, just.
+# Optional: helm-docs (https://github.com/norwoodj/helm-docs) for the `docs` recipe.
+
+chart_dir := justfile_directory()
+release_name := "pretix"
+rendered := "/tmp/pretix-helm-rendered.yaml"
+rendered_own := "/tmp/pretix-helm-rendered-own.yaml"
+
+# List all available recipes
+default:
+    @just --list
+
+# Fetch/refresh subchart dependencies (postgres, valkey)
+deps:
+    helm dependency update {{ chart_dir }}
+
+# Lint the chart with Helm's built-in linter (values.schema.json, required fields, etc.)
+lint: deps
+    helm lint --strict {{ chart_dir }}
+
+# Render all templates with default (or overridden) values, e.g. `just template --set replicas.pretixWeb=2`
+template *ARGS: deps
+    helm template {{ release_name }} {{ chart_dir }} {{ ARGS }}
+
+# Render the chart to a fixed path, used by the checks below.
+# Also splits off a copy containing only this chart's own templates (excluding
+# vendored subchart output from postgres/valkey, which we don't control the style of).
+render: deps
+    helm template {{ release_name }} {{ chart_dir }} > {{ rendered }}
+    awk '/^# Source:/{keep = ($0 !~ /\/charts\//)} keep' {{ rendered }} > {{ rendered_own }}
+
+# Validate every rendered manifest (ours and subcharts) against the real Kubernetes API schemas
+kubeconform: render
+    kubeconform -strict -summary -verbose {{ rendered }}
+
+# Lint the style/formatting of this chart's own rendered templates
+yamllint: render
+    yamllint -d "{extends: relaxed, rules: {indentation: disable, line-length: disable, document-start: disable, truthy: disable}}" {{ rendered_own }}
+
+# Run everything CI should check before merging a change
+check: lint kubeconform yamllint
+    @echo "All checks passed"
+
+# Regenerate values.schema.json from values.yaml - review the diff before committing
+schema:
+    cd {{ chart_dir }} && helm schema -draft 2019 -indent 4
+
+# Regenerate the README parameter tables from values.yaml (requires helm-docs)
+docs:
+    cd {{ chart_dir }} && helm-docs
+
+# Compare the pinned subchart versions in Chart.yaml against the latest available upstream
+outdated:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    helm repo update groundhog2k >/dev/null
+    for dep in postgres valkey; do
+        pinned=$(grep -A1 "name: $dep" {{ chart_dir }}/Chart.yaml | grep version | sed 's/.*"\(.*\)"/\1/')
+        latest=$(helm search repo groundhog2k/$dep --versions -o json | python3 -c "import json,sys; print(json.load(sys.stdin)[0]['version'])")
+        echo "$dep: pinned=$pinned latest=$latest"
+    done
+
+# Package the chart into a .tgz for distribution
+package: check
+    helm package {{ chart_dir }} -d {{ chart_dir }}/dist
+
+# Install/upgrade the chart into the current kube-context
+upgrade namespace="default": deps
+    helm upgrade --install {{ release_name }} {{ chart_dir }} -n {{ namespace }} --create-namespace
+
+# Remove the release from the current kube-context
+uninstall namespace="default":
+    helm uninstall {{ release_name }} -n {{ namespace }}
+
+# Remove generated/downloaded artifacts
+clean:
+    rm -rf {{ chart_dir }}/charts/*.tgz {{ chart_dir }}/dist {{ rendered }} {{ rendered_own }}
+
+# Bump the chart+app version and the default image tag together (they track the pretix release tag)
+bump-version version:
+    sed -i.bak 's/^version: .*/version: {{ version }}/' {{ chart_dir }}/Chart.yaml
+    sed -i.bak 's/^appVersion: .*/appVersion: {{ version }}/' {{ chart_dir }}/Chart.yaml
+    sed -i.bak 's/^  tag: .*/  tag: {{ version }}/' {{ chart_dir }}/values.yaml
+    rm -f {{ chart_dir }}/Chart.yaml.bak {{ chart_dir }}/values.yaml.bak

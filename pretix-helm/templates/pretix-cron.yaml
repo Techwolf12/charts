@@ -17,7 +17,7 @@ spec:
                 claimName: {{ include "pretix.fullname" .  | trunc 58 }}-data
             {{- if .Values.podSecurityContext }}
             securityContext:
-              {{- toYaml .Values.podSecurityContext | nindent 12 }}
+              {{- toYaml .Values.podSecurityContext | nindent 14 }}
             {{- end }}
             imagePullSecrets:
             {{- if .Values.image.pullSecrets }}
