@@ -12,7 +12,7 @@ dependencies:
     repository: "https://groundhog2k.github.io/helm-charts/"
     condition: postgres.enabled
   - name: valkey
-    version: "2.3.2"
+    version: "2.3.3"
     repository: "https://groundhog2k.github.io/helm-charts/"
     condition: valkey.enabled
 sources:
