@@ -39,6 +39,6 @@ spec:
               - name: {{ $key }}
                 value: {{ $value | quote }}
               {{- end }}
-              {{if .Values.extraEnv }}
+              {{- if .Values.extraEnv }}
               {{ .Values.extraEnv | toYaml | nindent 14 }}
               {{- end}}

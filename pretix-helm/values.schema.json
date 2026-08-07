@@ -114,6 +114,7 @@
             "default": {},
             "title": "The env Schema",
             "required": [
+                "NUM_WORKERS",
                 "PRETIX_PRETIX_INSTANCE_NAME",
                 "PRETIX_PRETIX_URL",
                 "PRETIX_PRETIX_CURRENCY",
@@ -131,6 +132,14 @@
                 "PRETIX_CELERY_BROKER"
             ],
             "properties": {
+                "NUM_WORKERS": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The NUM_WORKERS Schema",
+                    "examples": [
+                        4
+                    ]
+                },
                 "PRETIX_PRETIX_INSTANCE_NAME": {
                     "type": "string",
                     "default": "",
@@ -301,6 +310,7 @@
                 }
             },
             "examples": [{
+                "NUM_WORKERS": 4,
                 "PRETIX_PRETIX_INSTANCE_NAME": "Pretix Helm",
                 "PRETIX_PRETIX_URL": "http://localhost",
                 "PRETIX_PRETIX_CURRENCY": "EUR",
@@ -831,6 +841,7 @@
         },
         "cronSchedule": "*/30 * * * *",
         "env": {
+            "NUM_WORKERS": 4,
             "PRETIX_PRETIX_INSTANCE_NAME": "Pretix Helm",
             "PRETIX_PRETIX_URL": "http://localhost",
             "PRETIX_PRETIX_CURRENCY": "EUR",

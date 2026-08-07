@@ -83,6 +83,7 @@ See all possible config variables [on the Pretix documentation site](https://doc
 The syntax is `PRETIX_SECTION_CONFIG`. For example, to configure the setting `password_reset` from the `[pretix]` section, set `PRETIX_PRETIX_PASSWORD_RESET: off` in your environment.
 | Name                                      | Description                                                                                        | Default Value                 |
 |-------------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------|
+| env.NUM_WORKERS                           | Gunicorn worker count for the web pod. Not `PRETIX_`-prefixed - read directly by the container entrypoint. Defaults to 2x the *node's* CPU count if unset, which can spin up more workers than resources.limits.memory can hold and OOM-loop the pod on multi-core nodes; scale this together with resources.limits.memory (roughly 150-200Mi per worker) | 4 |
 | env.PRETIX_PRETIX_INSTANCE_NAME           | Name of your Pretix instance                                                                       | Pretix Helm                   |
 | env.PRETIX_PRETIX_URL                     | URL on how to access it                                                                            | http://localhost              |
 | env.PRETIX_PRETIX_CURRENCY                | Currency to use                                                                                    | EUR                           |

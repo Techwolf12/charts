@@ -13,6 +13,12 @@ replicas:
 cronSchedule: "*/30 * * * *"
 
 env:
+  # Gunicorn worker count for the web pod. Pinned explicitly because the container
+  # entrypoint defaults it to 2x the *node's* CPU count (not the pod's resources.*
+  # request/limit), which can spin up far more workers than resources.limits.memory
+  # can hold and OOM-loop the whole pod on multi-core nodes. Scale this together
+  # with resources.limits.memory (each worker uses roughly 150-200Mi at rest).
+  NUM_WORKERS: 4
   PRETIX_PRETIX_INSTANCE_NAME: Pretix Helm
   PRETIX_PRETIX_URL: http://localhost
   PRETIX_PRETIX_CURRENCY: EUR
@@ -26,10 +32,10 @@ env:
   PRETIX_MAIL_PORT: 587
   PRETIX_MAIL_TLS: True
   PRETIX_DATABASE_BACKEND: postgresql
-  # PRETIX_DATABASE_NAME: pretix
-  # PRETIX_DATABASE_USER: pretix
-  # PRETIX_DATABASE_PASSWORD: pretix
-  # PRETIX_DATABASE_HOST: pretix-postgres
+  PRETIX_DATABASE_NAME: pretix
+  PRETIX_DATABASE_USER: pretix
+  PRETIX_DATABASE_PASSWORD: pretix
+  PRETIX_DATABASE_HOST: pretix-postgres
   PRETIX_REDIS_LOCATION: redis://pretix-valkey/0
   PRETIX_REDIS_SESSIONS: true
   PRETIX_CELERY_BACKEND: redis://pretix-valkey/1
