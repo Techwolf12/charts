@@ -1,9 +1,193 @@
-<html
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Techwolf12's Helm Charts</title>
+    <meta name="description" content="A small collection of Helm charts maintained by Techwolf12.">
+    <style>
+        :root {
+            --bg: #fbfbfa;
+            --fg: #1d1d1f;
+            --muted: #6a6a70;
+            --line: #e6e6e3;
+            --accent: #2f5fd8;
+            --code-bg: #1c1e24;
+            --code-fg: #e8e8ea;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #16171a;
+                --fg: #e9e9ec;
+                --muted: #9a9aa2;
+                --line: #2a2c31;
+                --accent: #7aa2ff;
+                --code-bg: #0e0f12;
+                --code-fg: #e8e8ea;
+            }
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 72px 24px 96px;
+        }
+        header { margin-bottom: 48px; }
+        h1 {
+            font-size: 1.6rem;
+            margin: 0 0 6px;
+            letter-spacing: -0.01em;
+        }
+        header p {
+            margin: 0;
+            color: var(--muted);
+        }
+        h2 {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            margin: 44px 0 14px;
+            font-weight: 600;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre {
+            background: var(--code-bg);
+            color: var(--code-fg);
+            padding: 14px 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+            font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        pre .c { color: #7f8794; }
+        .chart {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 18px;
+            background: transparent;
+        }
+        .chart img {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .chart-body { flex: 1; min-width: 0; }
+        .chart-title {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .chart-title h3 { margin: 0; font-size: 1.05rem; }
+        .ver {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        .chart-body p { margin: 4px 0 12px; color: var(--muted); }
+        .links { display: flex; gap: 18px; font-size: 0.88rem; flex-wrap: wrap; }
+        footer {
+            margin-top: 56px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Techwolf12's Helm Charts</h1>
-    <p>See the repo <a href="https://github.com/Techwolf12/charts">here</a> or see the <a href="https://helm.techwolf12.nl/index.yaml">index.yaml</a></p>
+    <div class="wrap">
+        <header>
+            <h1>Techwolf12's Helm Charts</h1>
+        </header>
+
+        <h2>Add the repository</h2>
+        <pre>helm repo add techwolf12 https://helm.techwolf12.nl
+helm repo update</pre>
+
+        <h2>Charts</h2>
+        <div class="chart">
+            <img src="https://raw.githubusercontent.com/Techwolf12/charts/refs/heads/main/pretix-helm/icon.png" alt="Pretix logo" loading="lazy">
+            <div class="chart-body">
+                <div class="chart-title">
+                    <h3>pretix</h3>
+                    <span class="ver" data-chart="pretix">Unable to load latest version</span>
+                </div>
+                <p>Reinventing ticket presales, one ticket at a time. Runs Pretix with bundled Postgres and Valkey dependencies.</p>
+                <pre>helm install pretix techwolf12/pretix</pre>
+                <div class="links" style="margin-top:12px">
+                    <a href="https://artifacthub.io/packages/helm/techwolf12/pretix">Artifact Hub</a>
+                    <a href="https://github.com/Techwolf12/charts">Source</a>
+                    <a href="https://pretix.eu/">About Pretix</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Maintained by <a href="https://techwolf12.nl/">Christiaan de Die le Clercq</a>.
+            Raw index at <a href="https://helm.techwolf12.nl/index.yaml">index.yaml</a>.
+        </footer>
+    </div>
+
+    <script>
+        // Keep the version badges in sync with the Helm index so this page never
+        // drifts out of date. Every chart card with a data-chart="<name>" hook is
+        // filled in from index.yaml, so adding a chart is just adding a card.
+        // If the index can't be read (e.g. opening the file directly) the static
+        // values already in the markup stay put.
+        (function () {
+            function newer(a, b) {
+                var pa = a.split("."), pb = b.split(".");
+                for (var j = 0; j < Math.max(pa.length, pb.length); j++) {
+                    var na = parseInt(pa[j], 10) || 0;
+                    var nb = parseInt(pb[j], 10) || 0;
+                    if (na !== nb) return na > nb ? a : b;
+                }
+                return a;
+            }
+
+            // Parse index.yaml into { chartName: latestVersion }.
+            function parseLatest(yaml) {
+                var lines = yaml.split("\n");
+                var latest = {};
+                var chart = null;
+                for (var i = 0; i < lines.length; i++) {
+                    var header = lines[i].match(/^  ([A-Za-z0-9._-]+):\s*$/);
+                    if (header) { chart = header[1]; continue; }
+                    if (!chart) continue;
+                    // 4-space indent = the chart version (deps sit deeper).
+                    var v = lines[i].match(/^    version:\s*(.+?)\s*$/);
+                    if (v) latest[chart] = latest[chart] ? newer(latest[chart], v[1]) : v[1];
+                }
+                return latest;
+            }
+
+            fetch("index.yaml", { cache: "no-cache" })
+                .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
+                .then(function (yaml) {
+                    var latest = parseLatest(yaml);
+                    document.querySelectorAll("[data-chart]").forEach(function (el) {
+                        var v = latest[el.getAttribute("data-chart")];
+                        if (v) el.textContent = "v" + v;
+                    });
+                })
+                .catch(function () { /* keep the static fallbacks */ });
+        })();
+    </script>
 </body>
 </html>
