@@ -35,4 +35,10 @@ Session.vim
 # Chart dependencies
 **/charts/*.tgz
 
+# Packaged charts (`just package` / `just release`)
+dist/
+
+# gh-pages worktree created by `just release`
+/.gh-pages/
+
 .history

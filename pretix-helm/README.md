@@ -155,3 +155,34 @@ More options can be overridden from the [valkey chart](https://github.com/ground
 | ingress.hosts[0].paths[0].path     | The path under the host                                                       | /                      |
 | ingress.hosts[0].paths[0].pathType | The pathType of the path under the host                                       | ImplementationSpecific |
 | ingress.tls                        | TLS configuration for the ingress                                             | []                     |
+
+# Maintaining this chart
+Maintainer tasks live in the [justfile](justfile); run `just --list` for the full set.
+Requires `just`, `helm`, `kubeconform` and `yamllint`; releasing additionally needs `helm-sign` and a GPG key.
+
+```
+just check      # lint + kubeconform + yamllint
+just template   # render the manifests locally
+just outdated   # compare pinned subchart versions against upstream
+```
+
+## Releasing a new version
+```
+just release 2026.7.0
+```
+
+This cuts a complete release from `main`:
+1. Sets `version` and `appVersion` in `Chart.yaml` and `image.tag` in `values.yaml` to the given version.
+2. Runs `just check`, then commits with `chore(upgrade): Upgrade Pretix helm chart to <version>`.
+3. Packages the chart into `dist/`.
+4. Checks out the `gh-pages` branch into a `.gh-pages/` git worktree, moves the `.tgz` in,
+   signs it with `helm-sign`, regenerates `index.yaml`, and commits with
+   `chore(upgrade/release): Upgrade Pretix helm chart to <version>`.
+5. Asks for confirmation, then pushes `main` and `gh-pages`.
+
+Nothing is pushed until both commits exist locally, so a failed check or signing step leaves the
+remote untouched. Answering `n` at the prompt keeps both commits local. Useful knobs:
+
+* `NO_CONFIRM=1 just release 2026.7.0` - skip the push confirmation.
+* `HELM_SIGN_KEY=<key-id> just release 2026.7.0` - sign with a specific GPG key.
+* `just gh-pages-clean` - remove the `.gh-pages/` worktree when you no longer need it.

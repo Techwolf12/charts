@@ -2,10 +2,15 @@
 # Run `just` or `just --list` to see all available recipes.
 #
 # Requires: helm, kubeconform, yamllint, just.
-# Optional: helm-docs (https://github.com/norwoodj/helm-docs) for the `docs` recipe.
+# Optional: helm-docs (https://github.com/norwoodj/helm-docs) for the `docs` recipe,
+#           helm-sign + a GPG key for the `release` recipe.
 
 chart_dir := justfile_directory()
+repo_root := parent_directory(justfile_directory())
+dist_dir := chart_dir / "dist"
+gh_pages_dir := repo_root / ".gh-pages"
 release_name := "pretix"
+repo_url := "https://helm.techwolf12.nl"
 rendered := "/tmp/pretix-helm-rendered.yaml"
 rendered_own := "/tmp/pretix-helm-rendered-own.yaml"
 
@@ -65,7 +70,7 @@ outdated:
 
 # Package the chart into a .tgz for distribution
 package: check
-    helm package {{ chart_dir }} -d {{ chart_dir }}/dist
+    helm package {{ chart_dir }} -d {{ dist_dir }}
 
 # Install/upgrade the chart into the current kube-context
 upgrade namespace="default": deps
@@ -77,7 +82,7 @@ uninstall namespace="default":
 
 # Remove generated/downloaded artifacts
 clean:
-    rm -rf {{ chart_dir }}/charts/*.tgz {{ chart_dir }}/dist {{ rendered }} {{ rendered_own }}
+    rm -rf {{ chart_dir }}/charts/*.tgz {{ dist_dir }} {{ rendered }} {{ rendered_own }}
 
 # Bump the chart+app version and the default image tag together (they track the pretix release tag)
 bump-version version:
@@ -85,3 +90,103 @@ bump-version version:
     sed -i.bak 's/^appVersion: .*/appVersion: {{ version }}/' {{ chart_dir }}/Chart.yaml
     sed -i.bak 's/^  tag: .*/  tag: {{ version }}/' {{ chart_dir }}/values.yaml
     rm -f {{ chart_dir }}/Chart.yaml.bak {{ chart_dir }}/values.yaml.bak
+
+# Cut a release: bump versions, check, commit, package, sign, index and push (e.g. `just release 2026.7.0`)
+release version:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    version="{{ version }}"
+    pkg="{{ release_name }}-${version}.tgz"
+
+    # --- pre-flight ---------------------------------------------------------
+    if ! [[ "${version}" =~ ^[0-9]{4}\.[0-9]+(\.[0-9]+)?$ ]]; then
+        echo "error: '${version}' does not look like a pretix release tag (e.g. 2026.7.0)" >&2
+        exit 1
+    fi
+
+    branch="$(git -C "{{ repo_root }}" rev-parse --abbrev-ref HEAD)"
+    if [ "${branch}" != "main" ]; then
+        echo "error: releases are cut from main, but HEAD is on '${branch}'" >&2
+        exit 1
+    fi
+
+    # Everything outside the chart must already be committed, so `git add pretix-helm/` below
+    # can't sweep up unrelated work.
+    dirty="$(git -C "{{ repo_root }}" status --porcelain -- . ':(exclude)pretix-helm')"
+    if [ -n "${dirty}" ]; then
+        echo "error: uncommitted changes outside pretix-helm/ - commit or stash them first:" >&2
+        echo "${dirty}" >&2
+        exit 1
+    fi
+
+    git -C "{{ repo_root }}" fetch origin main gh-pages
+    if git -C "{{ repo_root }}" cat-file -e "origin/gh-pages:${pkg}" 2>/dev/null; then
+        echo "error: ${pkg} is already published on gh-pages" >&2
+        exit 1
+    fi
+
+    # --- main branch --------------------------------------------------------
+    echo "==> Bumping chart to ${version}"
+    {{ just_executable() }} --justfile "{{ justfile() }}" bump-version "${version}"
+
+    echo "==> Running checks"
+    {{ just_executable() }} --justfile "{{ justfile() }}" check
+
+    echo "==> Committing chart changes"
+    git -C "{{ repo_root }}" add pretix-helm/
+    if git -C "{{ repo_root }}" diff --cached --quiet; then
+        echo "    nothing to commit, chart is already at ${version}"
+    else
+        git -C "{{ repo_root }}" commit -m "chore(upgrade): Upgrade Pretix helm chart to ${version}"
+    fi
+
+    echo "==> Packaging ${pkg}"
+    rm -f "{{ dist_dir }}/${pkg}"
+    helm package "{{ chart_dir }}" -d "{{ dist_dir }}"
+
+    # --- gh-pages worktree --------------------------------------------------
+    {{ just_executable() }} --justfile "{{ justfile() }}" gh-pages-sync
+
+    echo "==> Signing and indexing in {{ gh_pages_dir }}"
+    mv "{{ dist_dir }}/${pkg}" "{{ gh_pages_dir }}/${pkg}"
+    cd "{{ gh_pages_dir }}"
+    # Set HELM_SIGN_KEY to pick a specific GPG key, otherwise the default one is used.
+    helm-sign ${HELM_SIGN_KEY:+--key "${HELM_SIGN_KEY}"} "${pkg}"
+    helm repo index . --url "{{ repo_url }}"
+    git add "${pkg}" "${pkg}.prov" index.yaml
+    git commit -m "chore(upgrade/release): Upgrade Pretix helm chart to ${version}"
+
+    # --- publish ------------------------------------------------------------
+    if [ "${NO_CONFIRM:-}" != "1" ]; then
+        read -r -p "Push main and gh-pages to origin? [y/N] " reply
+        case "${reply}" in
+            [yY]*) ;;
+            *) echo "Stopped before pushing. Both commits are local; push them yourself or re-run." ; exit 0 ;;
+        esac
+    fi
+    git -C "{{ repo_root }}" push origin main
+    git -C "{{ gh_pages_dir }}" push origin gh-pages
+    echo "Released ${version} -> {{ repo_url }}/${pkg}"
+
+# Create (if needed) and fast-forward the gh-pages worktree at .gh-pages
+gh-pages-sync:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    git -C "{{ repo_root }}" worktree prune
+    if [ ! -e "{{ gh_pages_dir }}/.git" ]; then
+        if [ -e "{{ gh_pages_dir }}" ]; then
+            echo "error: {{ gh_pages_dir }} exists but is not a git worktree - remove it first" >&2
+            exit 1
+        fi
+        git -C "{{ repo_root }}" fetch origin gh-pages
+        git -C "{{ repo_root }}" worktree add "{{ gh_pages_dir }}" gh-pages
+    fi
+    git -C "{{ gh_pages_dir }}" fetch origin gh-pages
+    # Fast-forward only: refuses rather than discarding local gh-pages commits.
+    git -C "{{ gh_pages_dir }}" merge --ff-only origin/gh-pages
+
+# Remove the gh-pages worktree (refuses if it has uncommitted changes)
+gh-pages-clean:
+    git -C {{ repo_root }} worktree remove {{ gh_pages_dir }}
+    git -C {{ repo_root }} worktree prune
