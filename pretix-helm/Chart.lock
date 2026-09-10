@@ -4,6 +4,6 @@ dependencies:
   version: 1.6.7
 - name: valkey
   repository: https://groundhog2k.github.io/helm-charts/
-  version: 2.3.3
-digest: sha256:11963796e9362e8e6bde878eaaaf0b50769a2574a5a63669d7d8a4b76d701f7f
-generated: "2026-07-30T17:52:14.757482917Z"
+  version: 2.3.4
+digest: sha256:6393c922a95ae46d2ada12114a03a5fa7415b0269fa420a18cefd87cfe2dce36
+generated: "2026-09-10T17:12:14.473607074Z"
