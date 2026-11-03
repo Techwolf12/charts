@@ -1,0 +1,45 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+apiVersion: v2
+appVersion: 2026.9.0
+dependencies:
+- - condition: postgres.enabled
+  name: postgres
+  repository: https://groundhog2k.github.io/helm-charts/
+  version: 1.6.8
+- - condition: valkey.enabled
+  name: valkey
+  repository: https://groundhog2k.github.io/helm-charts/
+  version: 2.3.5
+description: Reinventing ticket presales, one ticket at a time.
+icon: https://raw.githubusercontent.com/techwolf12/charts/main/pretix-helm/icon.png
+keywords:
+- - event-tickets
+maintainers:
+- - email: contact@techwolf12.nl
+  name: Chrsitiaan de Die le Clercq
+  url: https://techwolf12.nl/
+name: pretix
+sources:
+- - https://github.com/pretix/pretix
+- - https://github.com/techwolf12/charts
+- - https://hub.docker.com/r/pretix/standalone
+type: application
+version: 2026.9.0
+
+...
+files:
+  pretix-2026.9.0.tgz: sha256:2940185454868cc9c19c005b851bac72469fd14b4299b8548e852db938115e6b
+-----BEGIN PGP SIGNATURE-----
+
+iQFPBAEBCAA5FiEE6mGeX2a3p0AQmM2RfNhimD/7mYoFAmrpi8QbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMCwzAAoJEHzYYpg/+5mKzPwH+gMhAC0UCzUYLwNkrexf
+POmrw1x9osK6BxSZdb2n4PhgxrLXptl8gQRAUY/m1SnTZRlLqMi+15I10CNuaI1L
+X37flJGbzpnkWGYIuWY2krC6tWPQq/p9WK4wLiX0+ABeUJXay614HWcngCLD1zvt
+nDDk5ve4/JO/5VphDqUPyt7vNoluxeIUoXUriZ+yYEANcKYLrmujRdqpgeKUIEg5
+6wUTQkEgOOqqMI6BxROdtnZFyOwptVf+tSgi35CC5aMA2t2C8gngw4ZvknZwrU+F
+rOld79BjucUcRhcTbSzvlMhYXeO1yPnO2eH1e/720gKDQwt1vWUUmoLguzoTC+Sn
+Lck=
+=JYX0
+-----END PGP SIGNATURE-----
